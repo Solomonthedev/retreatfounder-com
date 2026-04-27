@@ -1,65 +1,283 @@
-import Image from "next/image";
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { fetchTools } from '@/lib/airtable'
+import { ToolCard } from '@/components/ToolCard'
+import { StickyNote } from '@/components/StickyNote'
+import { EmailCaptureForm } from '@/components/EmailCaptureForm'
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'The Retreat Founder — The Resource Directory for Retreat Founders',
+  description:
+    'You\'re wearing every hat. This is the directory that tells you what actually works: curated tools, insurance guides, booking software comparisons. Honest verdicts, no noise.',
+}
+
+export const revalidate = 60
+
+const CATEGORIES = [
+  { label: 'Marketing tools',  href: '/directory/marketing-tools/' },
+  { label: 'Insurance',        href: '/directory/insurance/' },
+  { label: 'Booking software', href: '/directory/booking-software/' },
+  { label: 'Legal templates',  href: '/directory/legal-templates/' },
+  { label: 'Photography',      href: '/directory/photography/' },
+]
+
+export default async function HomePage() {
+  const tools = await fetchTools()
+  const recommended = tools.filter((t) => t.recommended).slice(0, 3)
+  const NOTIFY_FORM = process.env.CONVERTKIT_NOTIFY_FORM_ID ?? 'preview'
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      {/* ── HERO ─────────────────────────────────────────────────── */}
+      <section style={{ borderBottom: '1px solid var(--color-ink)', padding: '72px 32px 80px' }}>
+        <div
+          style={{
+            maxWidth: 1280,
+            margin: '0 auto',
+            display: 'grid',
+            gridTemplateColumns: '1.1fr 0.9fr',
+            gap: 64,
+            alignItems: 'flex-end',
+          }}
+        >
+          <div>
+            <p
+              className="font-body font-semibold"
+              style={{
+                fontSize: 11,
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'var(--color-field-green)',
+                marginBottom: 24,
+              }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              The Retreat Founder · The Resource Directory
+            </p>
+            <h1
+              className="font-display text-ink uppercase"
+              style={{
+                fontSize: 96,
+                lineHeight: 0.92,
+                letterSpacing: '0.005em',
+                margin: '0 0 32px',
+              }}
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              For people<br />
+              who run<br />
+              <span style={{ color: 'var(--color-ember)' }}>retreats.</span>
+            </h1>
+            <p
+              className="font-body"
+              style={{
+                fontSize: 20,
+                lineHeight: 1.5,
+                color: 'var(--color-ink-60)',
+                maxWidth: 460,
+                marginBottom: 36,
+              }}
+            >
+              You&rsquo;re wearing every hat &mdash; planner, facilitator, bookkeeper,
+              marketer. This is the one resource built for people treating retreats
+              like a real business: curated tools, insurance guides, booking software
+              comparisons. Honest verdicts. No noise.
+            </p>
+            <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
+              <Link
+                href="/directory/marketing-tools/"
+                className="font-body font-semibold no-underline"
+                style={{
+                  background: 'var(--color-ember)',
+                  color: 'var(--color-cream)',
+                  fontSize: 15,
+                  padding: '12px 24px',
+                  borderRadius: 4,
+                }}
+              >
+                Browse the directory
+              </Link>
+              <Link
+                href="/newsletter"
+                className="font-body no-underline"
+                style={{
+                  fontSize: 15,
+                  fontWeight: 500,
+                  color: 'var(--color-field-green)',
+                }}
+              >
+                Get the letter →
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: category index + sticky */}
+          <div style={{ position: 'relative' }}>
+            <div
+              style={{
+                background: 'var(--color-field-green)',
+                borderRadius: 8,
+                padding: '32px 28px',
+              }}
+            >
+              <p
+                className="font-body font-semibold"
+                style={{
+                  fontSize: 10,
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-sticky)',
+                  marginBottom: 20,
+                }}
+              >
+                In the directory
+              </p>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {CATEGORIES.map(({ label, href }) => (
+                  <li key={href} style={{ borderTop: '1px solid rgba(241, 231, 209, 0.15)', padding: '14px 0' }}>
+                    <Link href={href} className="font-body no-underline" style={{ fontSize: 17, fontWeight: 500, color: 'var(--color-cream)' }}>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div style={{ position: 'absolute', right: -24, bottom: -18 }}>
+              <StickyNote
+                quote="You can't just post once and hope people show up."
+                attribution="From the community"
+                rotate={2.5}
+                maxWidth={210}
+              />
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </section>
+
+      {/* ── RECOMMENDED TOOLS ────────────────────────────────────── */}
+      {recommended.length > 0 && (
+        <section style={{ padding: '64px 32px', borderBottom: '1px solid var(--color-cream-300)' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'baseline',
+                marginBottom: 32,
+                gap: 16,
+              }}
+            >
+              <div>
+                <p
+                  className="font-body font-semibold"
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-field-green)',
+                    marginBottom: 10,
+                  }}
+                >
+                  Recommended
+                </p>
+                <h2
+                  className="font-display text-ink uppercase"
+                  style={{ fontSize: 40, letterSpacing: '0.005em', lineHeight: 1.1 }}
+                >
+                  If you only try three.
+                </h2>
+              </div>
+              <Link
+                href="/directory/marketing-tools/"
+                className="font-body no-underline"
+                style={{ fontSize: 14, color: 'var(--color-field-green)', fontWeight: 500 }}
+              >
+                See all tools →
+              </Link>
+            </div>
+            <div
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}
+            >
+              {recommended.map((tool) => (
+                <ToolCard key={tool.id} tool={tool} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── NEWSLETTER SIGNUP ────────────────────────────────────── */}
+      <section
+        style={{
+          background: 'var(--color-field-green)',
+          padding: '80px 32px',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1280,
+            margin: '0 auto',
+            display: 'grid',
+            gridTemplateColumns: '1.2fr 0.8fr',
+            gap: 64,
+            alignItems: 'center',
+          }}
+        >
+          <div>
+            <p
+              className="font-body font-semibold"
+              style={{
+                fontSize: 11,
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'var(--color-sticky)',
+                marginBottom: 16,
+              }}
+            >
+              The letter
+            </p>
+            <h2
+              className="font-display uppercase"
+              style={{
+                fontSize: 52,
+                lineHeight: 1.05,
+                letterSpacing: '0.005em',
+                color: 'var(--color-cream)',
+                margin: '0 0 20px',
+              }}
+            >
+              One short letter,<br />every Friday.
+            </h2>
+            <p
+              className="font-body"
+              style={{
+                fontSize: 18,
+                lineHeight: 1.55,
+                color: 'var(--color-field-green-300)',
+                maxWidth: 460,
+                marginBottom: 32,
+              }}
+            >
+              New tools, pricing insights, and one thing retreat founders actually used
+              this week. No guru content. No funnel talk.
+            </p>
+            <div style={{ maxWidth: 400 }}>
+              <EmailCaptureForm
+                formId={NOTIFY_FORM}
+                label="Subscribe"
+                placeholder="you@retreat.co"
+                onDark
+              />
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <StickyNote
+              quote="The only resource that treats retreat founders like the business owners they are."
+              attribution="The Retreat Founder"
+              rotate={2.4}
+              maxWidth={280}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
         </div>
-      </main>
-    </div>
-  );
+      </section>
+    </>
+  )
 }

@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   Brand fonts — local (brand-supplied)
+   ============================================================ */
+@font-face {
+  font-family: 'Brownist';
+  src: url('/fonts/Brownist.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Super Malibu 2';
+  src: url('/fonts/SuperMalibu2.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Napoli Extravagant';
+  src: url('/fonts/Napoli-Extravagant.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* ============================================================
+     COLOR — six confident colors anchored to the moodboard
+     ============================================================ */
+
+  /* Core */
+  --color-field-green:     #1F5638;
+  --color-field-green-700: #0B4A2E;
+  --color-field-green-300: #6A9A82;
+  --color-field-green-100: #D6E4DC;
+
+  --color-ember:           #C84A1F;
+  --color-ember-700:       #B83815;
+  --color-ember-100:       #F8D9CD;
+
+  --color-cream:           #F1E7D1;
+  --color-cream-50:        #FBF7EC;
+  --color-cream-200:       #ECE2CD;
+  --color-cream-300:       #DDD0B5;
+
+  --color-golden:          #B58238;
+  --color-golden-700:      #A07020;
+  --color-golden-100:      #F0DEB8;
+
+  --color-ink:             #221E16;
+  --color-ink-80:          #3A3A33;
+  --color-ink-60:          #5C5C53;
+  --color-ink-40:          #8A8A80;
+  --color-ink-20:          #BFBFB5;
+
+  --color-sticky:          #EFD37A;
+
+  /* ============================================================
+     TYPOGRAPHY — four voices
+     ============================================================ */
+
+  /* Display (chunky cabin-signage slab — ALL CAPS hierarchy) */
+  --font-display:   'Brownist', 'Cooper Black', Georgia, serif;
+  /* Display alt (fat 70s poster — pull-quotes, oversized nums) */
+  --font-alt:       'Super Malibu 2', 'Brownist', Georgia, serif;
+  /* Ornamental (mastheads, drop caps — one per page max) */
+  --font-ornament:  'Napoli Extravagant', Georgia, serif;
+  /* Body / utility — Hanken Grotesk loaded via next/font */
+  --font-body:      var(--font-hanken), 'Hanken Grotesk', system-ui, sans-serif;
+
+  /* ============================================================
+     SHADOWS — paper, not glass
+     ============================================================ */
+  --shadow-paper:  0 1px 2px rgba(34, 30, 22, 0.06), 0 2px 6px rgba(34, 30, 22, 0.06);
+  --shadow-card:   0 2px 4px rgba(34, 30, 22, 0.08), 0 8px 18px rgba(34, 30, 22, 0.08);
+  --shadow-lift:   0 6px 12px rgba(34, 30, 22, 0.12), 0 18px 32px rgba(34, 30, 22, 0.12);
+  --shadow-sticky: 2px 3px 0 rgba(34, 30, 22, 0.10), 0 8px 14px rgba(34, 30, 22, 0.10);
+
+  /* ============================================================
+     MOTION — slow, weighty. Print pages turn.
+     ============================================================ */
+  --ease-out:     cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+}
+
+::selection {
+  background: var(--color-sticky);
+  color: var(--color-ink);
+}
+
+a {
+  color: var(--color-field-green);
+  text-decoration-color: var(--color-cream-300);
+  text-underline-offset: 3px;
+  transition: color 140ms var(--ease-out),
+              text-decoration-color 140ms var(--ease-out);
+}
+a:hover {
+  color: var(--color-ember);
+  text-decoration-color: currentColor;
+}
+
+.btn-ember {
+  transition: background 140ms ease-out;
+}
+.btn-ember:hover {
+  background: color-mix(in srgb, var(--color-ember) 80%, black) !important;
 }
