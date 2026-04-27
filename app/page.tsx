@@ -1,65 +1,72 @@
-import Image from "next/image";
+import { ToolCard } from '@/components/ToolCard'
+import { ComingSoon } from '@/components/ComingSoon'
+import { EmailCaptureForm } from '@/components/EmailCaptureForm'
+import type { Tool } from '@/lib/types'
 
-export default function Home() {
+const previewTool: Tool = {
+  id: 'preview',
+  name: 'ConvertKit',
+  slug: 'convertkit',
+  description: 'Email marketing built for creators. Simple automations, clean sequences, and forms that retreat operators actually use.',
+  category: 'Marketing Tools',
+  tags: ['Email', 'Automation', 'Forms'],
+  logoUrl: null,
+  priceRange: 'Free – $29/mo',
+  turfVerdict: 'Best starting point for retreat operators new to email. Easy to set up, good enough sequences, and the free tier gets you to 1,000 subscribers.',
+  affiliateUrl: 'https://convertkit.com',
+  featured: false,
+  recommended: true,
+  status: 'Active',
+}
+
+export default function PreviewPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="max-w-[1200px] mx-auto px-4 py-12 space-y-16">
+
+      {/* Typography scale */}
+      <section>
+        <p className="font-mono text-xs text-ochre uppercase tracking-widest mb-4">Phase 0A — Design Review</p>
+        <h1 className="font-heading text-5xl text-ink mb-3">Heading 1 — Gloock</h1>
+        <h2 className="font-heading text-3xl text-ink mb-3">Heading 2 — Gloock</h2>
+        <p className="font-body text-ink/80 max-w-xl mb-3">Body copy — Instrument Sans. The directory retreat operators actually need. Curated tools, honest verdicts, built in public.</p>
+        <p className="font-mono text-sm text-ink/50">Mono label — DM Mono — Free – $29/mo</p>
+      </section>
+
+      {/* Colour swatches */}
+      <section>
+        <p className="font-mono text-xs text-ochre uppercase tracking-widest mb-4">Colour Palette</p>
+        <div className="flex gap-4">
+          <div className="w-16 h-16 rounded bg-forest flex items-end p-1"><span className="text-cream font-mono text-xs">forest</span></div>
+          <div className="w-16 h-16 rounded bg-ochre flex items-end p-1"><span className="text-ink font-mono text-xs">ochre</span></div>
+          <div className="w-16 h-16 rounded bg-ink flex items-end p-1"><span className="text-cream font-mono text-xs">ink</span></div>
+          <div className="w-16 h-16 rounded bg-cream border border-ink/10 flex items-end p-1"><span className="text-ink font-mono text-xs">cream</span></div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* ToolCard */}
+      <section>
+        <p className="font-mono text-xs text-ochre uppercase tracking-widest mb-4">ToolCard Component</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ToolCard tool={previewTool} />
+          <ToolCard tool={{ ...previewTool, id: 'p2', name: 'Beehiiv', slug: 'beehiiv', turfVerdict: null, affiliateUrl: null, tags: ['Newsletter', 'Monetisation'] }} />
+          <ToolCard tool={{ ...previewTool, id: 'p3', name: 'Notion', slug: 'notion', priceRange: 'Free – $16/mo', tags: ['Productivity', 'All-in-One Platform'] }} />
         </div>
-      </main>
+      </section>
+
+      {/* EmailCaptureForm */}
+      <section>
+        <p className="font-mono text-xs text-ochre uppercase tracking-widest mb-4">EmailCaptureForm Component</p>
+        <div className="max-w-sm">
+          <EmailCaptureForm formId="preview" label="Join the list" placeholder="your@email.com" />
+        </div>
+      </section>
+
+      {/* ComingSoon */}
+      <section>
+        <p className="font-mono text-xs text-ochre uppercase tracking-widest mb-4">ComingSoon Component</p>
+        <ComingSoon categoryName="Retreat Insurance" formId="preview" description="Insurance providers who understand retreat businesses. Waiver-to-coverage guides included. Coming in Week 3." />
+      </section>
+
     </div>
-  );
+  )
 }
