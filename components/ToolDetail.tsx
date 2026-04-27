@@ -17,7 +17,7 @@ export function ToolDetail({ tool, hubPath, hubLabel }: ToolDetailProps) {
           {hubLabel}
         </Link>
         <span style={{ margin: '0 8px', color: 'var(--color-cream-300)' }}>/</span>
-        <span>{tool.name}</span>
+        <span style={{ color: 'var(--color-ink-60)' }}>{tool.name}</span>
       </nav>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
@@ -59,14 +59,12 @@ export function ToolDetail({ tool, hubPath, hubLabel }: ToolDetailProps) {
 
         {/* Right: verdict */}
         <div style={{ paddingTop: 80 }}>
-          {tool.description && (
-            <>
-              <p className="font-body font-semibold" style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-ink-40)', marginBottom: 16 }}>
-                Our take
-              </p>
-              <StickyNote quote={tool.description} attribution="The Retreat Founder" rotate={-1.5} maxWidth={380} />
-            </>
-          )}
+          <>
+            <p className="font-body font-semibold" style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-ink-40)', marginBottom: 16 }}>
+              Our take
+            </p>
+            <StickyNote quote={tool.description} attribution="The Retreat Founder" rotate={-1.5} maxWidth={380} />
+          </>
           <div style={{ marginTop: 48 }}>
             <Link href={hubPath} className="font-body no-underline" style={{ fontSize: 14, color: 'var(--color-field-green)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
               ← Back to all tools
