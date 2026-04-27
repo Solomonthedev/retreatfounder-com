@@ -73,3 +73,9 @@ test('insurance tool links to insurance hub path', () => {
   const nameLink = screen.getByRole('link', { name: 'Markel' })
   expect(nameLink).toHaveAttribute('href', '/directory/insurance/markel')
 })
+
+test('does not show Unrated for tools with no verdict', () => {
+  const noVerdictTool: Tool = { ...mockTool, turfVerdict: null, recommended: false }
+  render(<ToolCard tool={noVerdictTool} />)
+  expect(screen.queryByText('Unrated')).not.toBeInTheDocument()
+})

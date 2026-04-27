@@ -80,27 +80,29 @@ export function ToolCard({ tool }: Props) {
 
       {/* Verdict badge + tags */}
       <div className="flex flex-wrap items-center gap-1.5" style={{ marginTop: 4 }}>
-        <span
-          className="font-body font-semibold"
-          style={{
-            fontSize: 10,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            padding: '4px 10px',
-            borderRadius: 999,
-            background: isRecommended
-              ? 'var(--color-field-green-100)'
-              : 'rgba(0,0,0,0.05)',
-            color: isRecommended
-              ? 'var(--color-field-green)'
-              : 'var(--color-ink-40)',
-            border: isRecommended
-              ? '1px solid var(--color-field-green)'
-              : '1px solid rgba(0,0,0,0.1)',
-          }}
-        >
-          {tool.turfVerdict ?? 'Unrated'}
-        </span>
+        {tool.turfVerdict && (
+          <span
+            className="font-body font-semibold"
+            style={{
+              fontSize: 10,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              padding: '4px 10px',
+              borderRadius: 999,
+              background: isRecommended
+                ? 'var(--color-field-green-100)'
+                : 'rgba(0,0,0,0.05)',
+              color: isRecommended
+                ? 'var(--color-field-green)'
+                : 'var(--color-ink-40)',
+              border: isRecommended
+                ? '1px solid var(--color-field-green)'
+                : '1px solid rgba(0,0,0,0.1)',
+            }}
+          >
+            {tool.turfVerdict}
+          </span>
+        )}
         {filteredTags.map((tag) => (
           <span
             key={tag}
