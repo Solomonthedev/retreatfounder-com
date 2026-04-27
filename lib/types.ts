@@ -3,15 +3,17 @@ export interface Tool {
   name: string
   slug: string
   description: string
+  pillar: string
   category: string
   tags: string[]
   logoUrl: string | null
   priceRange: string | null
   turfVerdict: string | null
+  website: string | null
   affiliateUrl: string | null
   featured: boolean
   recommended: boolean
-  status: 'Active' | 'Coming Soon' | 'Archived'
+  status: 'Live' | 'Coming Soon' | 'Archived'
 }
 
 export interface Category {
