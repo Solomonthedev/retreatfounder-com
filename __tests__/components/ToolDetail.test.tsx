@@ -22,7 +22,7 @@ const mockTool: Tool = {
 
 test('renders tool name', () => {
   render(<ToolDetail tool={mockTool} hubPath="/directory/marketing-tools/" hubLabel="Marketing tools" />)
-  expect(screen.getByText('ConvertKit')).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: 'ConvertKit' })).toBeInTheDocument()
 })
 
 test('renders full description (not truncated)', () => {
@@ -46,5 +46,6 @@ test('does not show affiliate disclosure when no affiliateUrl', () => {
 test('back link uses hubPath', () => {
   render(<ToolDetail tool={mockTool} hubPath="/directory/insurance/" hubLabel="Retreat insurance" />)
   const backLink = screen.getByRole('link', { name: /back to all/i })
-  expect(backLink).toHaveAttribute('href', '/directory/insurance/')
+  // Next.js <Link> strips trailing slashes in the test environment
+  expect(backLink).toHaveAttribute('href', '/directory/insurance')
 })

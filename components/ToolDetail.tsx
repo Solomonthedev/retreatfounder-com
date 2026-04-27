@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { StickyNote } from './StickyNote'
 import type { Tool } from '@/lib/types'
 
@@ -12,10 +13,11 @@ export function ToolDetail({ tool, hubPath, hubLabel }: ToolDetailProps) {
     <div style={{ maxWidth: 1280, margin: '0 auto', padding: '48px 32px 96px' }}>
       {/* Breadcrumb */}
       <nav className="font-body" style={{ fontSize: 13, color: 'var(--color-ink-40)', marginBottom: 32 }}>
-        <a href={hubPath} className="no-underline" style={{ color: 'var(--color-field-green)' }}>
+        <Link href={hubPath} className="no-underline" style={{ color: 'var(--color-field-green)' }}>
           {hubLabel}
-        </a>
+        </Link>
         <span style={{ margin: '0 8px', color: 'var(--color-cream-300)' }}>/</span>
+        <span>{tool.name}</span>
       </nav>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
@@ -66,9 +68,9 @@ export function ToolDetail({ tool, hubPath, hubLabel }: ToolDetailProps) {
             </>
           )}
           <div style={{ marginTop: 48 }}>
-            <a href={hubPath} className="font-body no-underline" style={{ fontSize: 14, color: 'var(--color-field-green)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <Link href={hubPath} className="font-body no-underline" style={{ fontSize: 14, color: 'var(--color-field-green)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
               ← Back to all tools
-            </a>
+            </Link>
           </div>
         </div>
       </div>
