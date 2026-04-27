@@ -10,8 +10,6 @@ export function ToolCard({ tool }: Props) {
   const filteredTags = tool.tags.filter(
     (t) => t.toLowerCase() !== tool.category.toLowerCase()
   )
-  const visitUrl = tool.affiliateUrl ?? (tool as unknown as { website?: string }).website ?? null
-
   return (
     <article
       className="bg-white flex flex-col gap-3"
