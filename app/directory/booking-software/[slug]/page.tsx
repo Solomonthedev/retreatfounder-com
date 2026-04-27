@@ -12,14 +12,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const tool = await fetchTool(slug)
+  const tool = await fetchTool(slug, 'Booking Software')
   if (!tool) return {}
   return { title: `${tool.name} — Retreat Booking Software`, description: tool.description }
 }
 
 export default async function BookingToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const tool = await fetchTool(slug)
+  const tool = await fetchTool(slug, 'Booking Software')
   if (!tool) notFound()
   return <ToolDetail tool={tool} hubPath="/directory/booking-software/" hubLabel="Booking software" />
 }

@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const tool = await fetchTool(slug)
+  const tool = await fetchTool(slug, 'Marketing Tools')
   if (!tool) return {}
   return {
     title: `${tool.name} — Marketing Tools for Retreat Founders`,
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const tool = await fetchTool(slug)
+  const tool = await fetchTool(slug, 'Marketing Tools')
   if (!tool) notFound()
 
   return (

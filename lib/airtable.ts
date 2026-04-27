@@ -7,6 +7,11 @@ const HEADERS = {
 }
 
 async function airtableFetch(table: string, params: string = '') {
+  const pat = process.env.AIRTABLE_PAT
+  if (process.env.NODE_ENV !== 'test' && (!pat || pat.startsWith('placeholder'))) {
+    console.warn('[airtable] AIRTABLE_PAT not set — returning empty data')
+    return { records: [] }
+  }
   const res = await fetch(`${BASE_URL}/${encodeURIComponent(table)}${params}`, {
     headers: HEADERS,
     next: { revalidate: 60 },
@@ -22,30 +27,34 @@ function recordToTool(record: { id: string; fields: Record<string, unknown> }): 
     name: String(f['Name'] ?? ''),
     slug: String(f['Slug'] ?? ''),
     description: String(f['Description'] ?? ''),
+    pillar: String(f['Pillar'] ?? ''),
     category: String(f['Category'] ?? ''),
     tags: Array.isArray(f['Tags']) ? (f['Tags'] as string[]) : [],
     logoUrl: f['Logo URL'] ? String(f['Logo URL']) : null,
     priceRange: f['Price Range'] ? String(f['Price Range']) : null,
+    website: f['Website'] ? String(f['Website']) : null,
     turfVerdict: f['TRF Verdict'] ? String(f['TRF Verdict']) : null,
-    affiliateUrl: f['Affiliate URL'] ? String(f['Affiliate URL']) : null,
-    featured: Boolean(f['Featured']),
-    recommended: Boolean(f['Recommended']),
-    status: (f['Status'] as Tool['status']) ?? 'Active',
+    affiliateUrl: f['Affiliate Link'] ? String(f['Affiliate Link']) : null,
+    featured: String(f['TRF Verdict'] ?? '') === 'Featured',
+    recommended: String(f['TRF Verdict'] ?? '') === 'Recommended',
+    status: (f['Status'] as Tool['status']) ?? 'Live',
   }
 }
 
 export async function fetchTools(): Promise<Tool[]> {
-  const data = await airtableFetch('Resources', '?filterByFormula=({Status}="Active")')
+  const data = await airtableFetch('Resources', '?filterByFormula=({Status}="Live")')
   return (data.records as { id: string; fields: Record<string, unknown> }[]).map(recordToTool)
 }
 
-export async function fetchTool(slug: string): Promise<Tool | null> {
+export async function fetchTool(slug: string, pillar?: string): Promise<Tool | null> {
   const data = await airtableFetch(
     'Resources',
     `?filterByFormula=({Slug}="${slug}")`
   )
   if (!data.records.length) return null
-  return recordToTool(data.records[0])
+  const tool = recordToTool(data.records[0])
+  if (pillar && tool.pillar !== pillar) return null
+  return tool
 }
 
 export async function fetchCategories(): Promise<Category[]> {

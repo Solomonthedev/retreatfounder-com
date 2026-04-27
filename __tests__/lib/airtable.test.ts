@@ -13,12 +13,13 @@ const mockToolRecord = {
     Name: 'ConvertKit',
     Slug: 'convertkit',
     Description: 'Email marketing for creators',
-    Category: 'Marketing Tools',
+    Pillar: 'Marketing Tools',
+    Category: 'Email Marketing',
     Tags: ['Email', 'Forms'],
     'Price Range': 'Free – $29/mo',
-    Status: 'Active',
-    Featured: false,
-    Recommended: true,
+    Status: 'Live',
+    'TRF Verdict': 'Recommended',
+    'Affiliate Link': 'https://convertkit.com?ref=trf',
   },
 }
 
@@ -56,4 +57,13 @@ test('fetchCategories returns sorted Category array', async () => {
   const categories = await fetchCategories()
   expect(categories[0].slug).toBe('marketing-tools')
   expect(categories[1].slug).toBe('insurance')
+})
+
+test('fetchTool returns null if pillar does not match', async () => {
+  ;(fetch as jest.Mock).mockResolvedValueOnce(
+    mockAirtableResponse([mockToolRecord])
+  )
+  // mockToolRecord has Pillar: 'Marketing Tools', but we request with pillar='Insurance'
+  const tool = await fetchTool('convertkit', 'Insurance')
+  expect(tool).toBeNull()
 })

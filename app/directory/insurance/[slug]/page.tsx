@@ -14,14 +14,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const tool = await fetchTool(slug)
+  const tool = await fetchTool(slug, 'Insurance')
   if (!tool) return {}
   return { title: `${tool.name} — Retreat Insurance`, description: tool.description }
 }
 
 export default async function InsuranceToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const tool = await fetchTool(slug)
+  const tool = await fetchTool(slug, 'Insurance')
   if (!tool) notFound()
   return <ToolDetail tool={tool} hubPath="/directory/insurance/" hubLabel="Retreat insurance" />
 }

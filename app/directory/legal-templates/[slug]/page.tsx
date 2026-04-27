@@ -12,14 +12,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const tool = await fetchTool(slug)
+  const tool = await fetchTool(slug, 'Legal Templates')
   if (!tool) return {}
   return { title: `${tool.name} — Retreat Legal Templates`, description: tool.description }
 }
 
 export default async function LegalToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const tool = await fetchTool(slug)
+  const tool = await fetchTool(slug, 'Legal Templates')
   if (!tool) notFound()
   return <ToolDetail tool={tool} hubPath="/directory/legal-templates/" hubLabel="Legal templates" />
 }
