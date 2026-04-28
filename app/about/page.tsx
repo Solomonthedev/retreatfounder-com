@@ -77,12 +77,11 @@ export default function AboutPage() {
               the day. Nobody was building infrastructure for them.
             </p>
             <p>
-              So we did. The gold rush is the retreat. We&rsquo;re here for the retreat maker.
+              So we built the infrastructure that should have existed from the start.
             </p>
             <p>
               Some links in the directory are affiliate links — we earn a small commission if
-              you sign up. It never affects our verdict. We&rsquo;d tell you if a tool was
-              rubbish.
+              you sign up. We&rsquo;d tell you if a tool was rubbish.
             </p>
           </div>
 

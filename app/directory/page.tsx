@@ -16,7 +16,7 @@ const CATEGORIES = [
   {
     slug: 'booking-software',
     name: 'Booking Software',
-    description: 'Deposits, group bookings, intake forms, payment processing.',
+    description: 'Handle deposits, group spots, and intake — without the email back-and-forth.',
   },
   {
     slug: 'insurance',

@@ -33,7 +33,12 @@ export function ToolDetail({ tool, hubPath, hubLabel }: ToolDetailProps) {
             <p className="font-body text-ink-60" style={{ fontSize: 16, marginBottom: 24 }}>{tool.priceRange}</p>
           )}
           <hr style={{ border: 0, height: 1, background: 'var(--color-ink)', margin: '32px 0' }} />
-          <p className="font-body" style={{ fontSize: 19, lineHeight: 1.55, color: 'var(--color-ink-80)', marginBottom: 24 }}>
+          {tool.tagline && (
+            <p className="font-body" style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.45, color: 'var(--color-ink)', marginBottom: 16 }}>
+              {tool.tagline}
+            </p>
+          )}
+          <p className="font-body" style={{ fontSize: 18, lineHeight: 1.6, color: 'var(--color-ink-60)', marginBottom: 24 }}>
             {tool.description}
           </p>
           {tool.tags.length > 0 && (
@@ -51,7 +56,7 @@ export function ToolDetail({ tool, hubPath, hubLabel }: ToolDetailProps) {
                 Visit {tool.name} →
               </a>
               <p className="font-body" style={{ fontSize: 12, color: 'var(--color-ink-40)', marginTop: 10, maxWidth: 340 }}>
-                Affiliate disclosure: we may earn a commission if you sign up via this link. It never affects our verdict.
+                {"Affiliate disclosure: we may earn a commission if you sign up via this link — we only list tools we'd recommend without it."}
               </p>
             </>
           )}

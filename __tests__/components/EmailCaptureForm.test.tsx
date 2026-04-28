@@ -23,6 +23,6 @@ test('submits form and shows success message', async () => {
   })
   fireEvent.click(screen.getByRole('button', { name: /notify me/i }))
   await waitFor(() =>
-    expect(screen.getByText(/you're on the list/i)).toBeInTheDocument()
+    expect(screen.getByText(/you're on the list — see you friday/i)).toBeInTheDocument()
   )
 })

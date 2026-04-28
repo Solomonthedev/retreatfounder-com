@@ -42,7 +42,7 @@ export function CategoryHub({
             </div>
             <div style={{ maxWidth: 300, width: '100%' }}>
               <p className="font-body font-semibold" style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-60)', marginBottom: 12 }}>
-                Get new tools by email
+                New tools, every week
               </p>
               <EmailCaptureForm formId={formId} label="Notify me" placeholder="your@email.com" />
             </div>

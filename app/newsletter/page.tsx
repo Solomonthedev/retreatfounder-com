@@ -32,7 +32,7 @@ export default function NewsletterPage() {
               marginBottom: 16,
             }}
           >
-            The letter · Every Friday
+            The letter
           </p>
           <h1
             className="font-display text-ink uppercase"
@@ -90,7 +90,7 @@ export default function NewsletterPage() {
             maxWidth={300}
           />
           <StickyNote
-            quote="Most retreat tools newsletters either sell you something or tell you nothing. This one tries to tell you something useful every single week."
+            quote="Most retreat tools newsletters either sell you something or tell you nothing. This one tells you something useful every Friday."
             attribution="The Retreat Founder"
             rotate={1.5}
             maxWidth={280}

@@ -6,6 +6,7 @@ const mockTool: Tool = {
   id: 'rec1',
   name: 'ConvertKit',
   slug: 'convertkit',
+  tagline: 'Build your retreat waitlist and welcome sequence before lunch.',
   description: 'Email marketing built for creators. Sequences are simple and the free tier is genuinely useful.',
   pillar: 'Marketing Tools',
   category: 'Email Marketing',
@@ -34,7 +35,7 @@ test('renders full description (not truncated)', () => {
 test('shows affiliate disclosure when affiliateUrl is set', () => {
   render(<ToolDetail tool={mockTool} hubPath="/directory/marketing-tools/" hubLabel="Marketing tools" />)
   expect(screen.getByText(/affiliate disclosure/i)).toBeInTheDocument()
-  expect(screen.getByText(/never affects our verdict/i)).toBeInTheDocument()
+  expect(screen.getByText(/we only list tools we'd recommend without it/i)).toBeInTheDocument()
 })
 
 test('does not show affiliate disclosure when no affiliateUrl', () => {

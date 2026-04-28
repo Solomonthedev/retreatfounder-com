@@ -18,8 +18,8 @@ export default async function BookingSoftwareHub() {
   return (
     <CategoryHub
       pillarName="Booking Software"
-      headline="Your calendar shouldn't need"
-      headlineAccent="a manual."
+      headline="Your bookings shouldn't live"
+      headlineAccent="in your inbox."
       bodyText="WeTravel, FareHarbor, Retreat Guru — there are more booking platforms than you'd think, and they're not all built the same. These are the tools that handle deposits, group bookings, intake forms, and payment processing without charging hotel-tier fees or requiring a developer to set up."
       tools={bookingTools}
       formId={formId}

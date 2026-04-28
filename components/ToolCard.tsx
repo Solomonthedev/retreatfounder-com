@@ -6,27 +6,35 @@ import { pillarToHubSlug } from '@/lib/pillar'
 interface Props { tool: Tool }
 
 export function ToolCard({ tool }: Props) {
-  const isRecommended = tool.turfVerdict === 'Recommended'
+  const href = `/directory/${pillarToHubSlug(tool.pillar)}/${tool.slug}`
   const filteredTags = tool.tags.filter(
     (t) => t.toLowerCase() !== tool.category.toLowerCase()
   )
+
   return (
-    <article
-      className="bg-white flex flex-col gap-3"
+    <Link
+      href={href}
+      className="no-underline flex flex-col"
       style={{
+        background: 'var(--color-cream)',
         borderRadius: 8,
-        padding: '24px 24px 20px',
+        padding: '22px 24px 20px',
         boxShadow: 'var(--shadow-card)',
-        transition: 'box-shadow 240ms var(--ease-out)',
+        transition: 'box-shadow 200ms var(--ease-out), background 200ms var(--ease-out)',
+        cursor: 'pointer',
       }}
       onMouseEnter={(e) => {
-        ;(e.currentTarget as HTMLElement).style.boxShadow = 'var(--shadow-lift)'
+        const el = e.currentTarget as HTMLElement
+        el.style.boxShadow = 'var(--shadow-lift)'
+        el.style.background = '#fff'
       }}
       onMouseLeave={(e) => {
-        ;(e.currentTarget as HTMLElement).style.boxShadow = 'var(--shadow-card)'
+        const el = e.currentTarget as HTMLElement
+        el.style.boxShadow = 'var(--shadow-card)'
+        el.style.background = 'var(--color-cream)'
       }}
     >
-      {/* Category label */}
+      {/* Category */}
       <p
         className="font-body font-semibold"
         style={{
@@ -34,134 +42,114 @@ export function ToolCard({ tool }: Props) {
           letterSpacing: '0.14em',
           textTransform: 'uppercase',
           color: 'var(--color-ink-40)',
-          margin: 0,
+          margin: '0 0 10px',
         }}
       >
         {tool.category}
       </p>
 
-      {/* Name + price */}
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <Link
-            href={`/directory/${pillarToHubSlug(tool.pillar)}/${tool.slug}`}
-            className="no-underline"
+      {/* Name row */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 4 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <h3
+            className="font-display text-ink uppercase"
+            style={{ fontSize: 21, letterSpacing: '0.01em', lineHeight: 1.1, margin: 0 }}
           >
-            <h3
-              className="font-display text-ink uppercase"
-              style={{ fontSize: 22, letterSpacing: '0.01em', lineHeight: 1.1 }}
-            >
-              {tool.name}
-            </h3>
-          </Link>
-          {tool.priceRange && (
-            <p
-              className="font-body text-ink-40"
-              style={{ fontSize: 12, marginTop: 4 }}
-            >
-              {tool.priceRange}
-            </p>
-          )}
+            {tool.name}
+          </h3>
         </div>
         {tool.logoUrl && (
           <img
             src={tool.logoUrl}
             alt={`${tool.name} logo`}
-            className="object-contain"
-            style={{ width: 36, height: 36, flexShrink: 0, borderRadius: 6 }}
+            className="object-contain flex-shrink-0"
+            style={{ width: 34, height: 34, borderRadius: 6, marginTop: 2 }}
           />
         )}
       </div>
 
-      {/* Description — this IS the verdict, in full */}
-      <p className="font-body text-ink-80" style={{ fontSize: 15, lineHeight: 1.6, flexGrow: 1 }}>
+      {/* Price */}
+      {tool.priceRange && (
+        <p
+          className="font-body"
+          style={{ fontSize: 12, color: 'var(--color-ink-40)', margin: '0 0 14px' }}
+        >
+          {tool.priceRange}
+        </p>
+      )}
+
+      {/* Separator */}
+      <hr style={{ border: 0, height: 1, background: 'var(--color-ink)', opacity: 0.08, margin: '0 0 14px' }} />
+
+      {/* Tagline */}
+      {tool.tagline && (
+        <p
+          className="font-body"
+          style={{
+            fontSize: 14,
+            fontWeight: 600,
+            lineHeight: 1.45,
+            color: 'var(--color-ink-80)',
+            margin: '0 0 8px',
+          }}
+        >
+          {tool.tagline}
+        </p>
+      )}
+
+      {/* Description — truncated to 2 lines */}
+      <p
+        className="font-body"
+        style={{
+          fontSize: 13,
+          lineHeight: 1.6,
+          color: 'var(--color-ink-60)',
+          margin: '0 0 16px',
+          flex: 1,
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+        }}
+      >
         {tool.description}
       </p>
 
-      {/* Verdict badge + tags */}
-      <div className="flex flex-wrap items-center gap-1.5" style={{ marginTop: 4 }}>
-        {tool.turfVerdict && (
-          <span
-            className="font-body font-semibold"
-            style={{
-              fontSize: 10,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              padding: '4px 10px',
-              borderRadius: 999,
-              background: isRecommended
-                ? 'var(--color-field-green-100)'
-                : 'rgba(0,0,0,0.05)',
-              color: isRecommended
-                ? 'var(--color-field-green)'
-                : 'var(--color-ink-40)',
-              border: isRecommended
-                ? '1px solid var(--color-field-green)'
-                : '1px solid rgba(0,0,0,0.1)',
-            }}
-          >
-            {tool.turfVerdict}
-          </span>
-        )}
-        {filteredTags.map((tag) => (
-          <span
-            key={tag}
-            className="font-body"
-            style={{
-              fontSize: 10,
-              fontWeight: 500,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-              background: 'var(--color-cream)',
-              color: 'var(--color-ink-60)',
-              border: '1px solid var(--color-cream-300)',
-              padding: '4px 10px',
-              borderRadius: 999,
-            }}
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      {/* Affiliate CTA */}
-      {tool.affiliateUrl && (
-        <a
-          href={tool.affiliateUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-body no-underline"
+      {/* Bottom row: tags + CTA */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginTop: 'auto' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {filteredTags.slice(0, 2).map((tag) => (
+            <span
+              key={tag}
+              className="font-body"
+              style={{
+                fontSize: 10,
+                fontWeight: 500,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                background: 'transparent',
+                color: 'var(--color-ink-40)',
+                border: '1px solid var(--color-cream-300)',
+                padding: '3px 8px',
+                borderRadius: 999,
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <span
+          className="font-body font-semibold"
           style={{
-            marginTop: 4,
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            fontSize: 14,
-            fontWeight: 600,
+            fontSize: 12,
             color: 'var(--color-field-green)',
-            transition: 'color 140ms var(--ease-out)',
-          }}
-          onMouseOver={(e) =>
-            ((e.currentTarget as HTMLElement).style.color = 'var(--color-ember)')
-          }
-          onMouseOut={(e) =>
-            ((e.currentTarget as HTMLElement).style.color = 'var(--color-field-green)')
-          }
-          onClick={() => {
-            if (
-              typeof window !== 'undefined' &&
-              (window as Window & { va?: (...a: unknown[]) => void }).va
-            ) {
-              ;(window as Window & { va?: (...a: unknown[]) => void }).va?.(
-                'event',
-                { name: 'affiliate_click', tool: tool.slug, category: tool.category }
-              )
-            }
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
           }}
         >
-          Visit {tool.name} →
-        </a>
-      )}
-    </article>
+          Read our take →
+        </span>
+      </div>
+    </Link>
   )
 }

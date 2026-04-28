@@ -39,7 +39,7 @@ export function EmailCaptureForm({
           color: onDark ? 'var(--color-cream)' : 'var(--color-field-green)',
         }}
       >
-        You're on the list — we'll let you know when it's ready.
+        {"You're on the list — see you Friday."}
       </p>
     )
   }

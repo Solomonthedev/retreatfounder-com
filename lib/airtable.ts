@@ -26,6 +26,7 @@ function recordToTool(record: { id: string; fields: Record<string, unknown> }): 
     id: record.id,
     name: String(f['Name'] ?? ''),
     slug: String(f['Slug'] ?? ''),
+    tagline: f['Tagline'] ? String(f['Tagline']) : null,
     description: String(f['Description'] ?? ''),
     pillar: String(f['Pillar'] ?? ''),
     category: String(f['Category'] ?? ''),

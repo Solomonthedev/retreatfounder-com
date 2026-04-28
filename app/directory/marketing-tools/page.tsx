@@ -18,8 +18,8 @@ export default async function MarketingToolsHub() {
   return (
     <CategoryHub
       pillarName="Marketing Tools"
-      headline="Tools that actually"
-      headlineAccent="work."
+      headline="Stop stalling at"
+      headlineAccent="half capacity."
       bodyText="No sponsored rankings. No generic listicles. Every tool here was chosen because retreat founders — people stalling at half capacity, struggling to price for profit — actually needed it. Affiliate links always disclosed."
       tools={marketingTools}
       formId={formId}

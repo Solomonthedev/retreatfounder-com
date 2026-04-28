@@ -6,13 +6,14 @@ const mockTool: Tool = {
   id: 'rec1',
   name: 'ConvertKit',
   slug: 'convertkit',
+  tagline: 'Build your retreat waitlist and welcome sequence before lunch.',
   description: 'Email marketing for creators and retreat operators.',
   pillar: 'Marketing Tools',
   category: 'Email Marketing',
   tags: ['Email', 'Forms'],
   logoUrl: null,
   priceRange: 'Free – $29/mo',
-  turfVerdict: 'Best for beginners. Simple sequences, clean interface.',
+  turfVerdict: 'Recommended',
   affiliateUrl: 'https://convertkit.com?ref=trf',
   featured: false,
   recommended: true,
@@ -24,22 +25,25 @@ test('renders tool name', () => {
   expect(screen.getByText('ConvertKit')).toBeInTheDocument()
 })
 
-test('renders TRF verdict', () => {
+test('renders tagline when present', () => {
   render(<ToolCard tool={mockTool} />)
-  expect(screen.getByText(/Best for beginners/)).toBeInTheDocument()
+  expect(screen.getByText(/Build your retreat waitlist/)).toBeInTheDocument()
 })
 
-test('affiliate link uses affiliateUrl from Airtable', () => {
-  render(<ToolCard tool={mockTool} />)
-  const link = screen.getByRole('link', { name: /visit/i })
-  expect(link).toHaveAttribute('href', 'https://convertkit.com?ref=trf')
+test('does not render tagline when absent', () => {
+  const noTagline: Tool = { ...mockTool, tagline: null }
+  render(<ToolCard tool={noTagline} />)
+  expect(screen.queryByText(/Build your retreat waitlist/)).not.toBeInTheDocument()
 })
 
-test('affiliate link opens in new tab', () => {
+test('renders description', () => {
   render(<ToolCard tool={mockTool} />)
-  const link = screen.getByRole('link', { name: /visit/i })
-  expect(link).toHaveAttribute('target', '_blank')
-  expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+  expect(screen.getByText(/Email marketing for creators/)).toBeInTheDocument()
+})
+
+test('renders price range', () => {
+  render(<ToolCard tool={mockTool} />)
+  expect(screen.getByText(/Free – \$29\/mo/)).toBeInTheDocument()
 })
 
 test('renders tags', () => {
@@ -48,16 +52,15 @@ test('renders tags', () => {
   expect(screen.getByText('Forms')).toBeInTheDocument()
 })
 
-test('renders price range', () => {
+test('renders Read our take CTA', () => {
   render(<ToolCard tool={mockTool} />)
-  expect(screen.getByText(/Free – \$29\/mo/)).toBeInTheDocument()
+  expect(screen.getByText(/Read our take/)).toBeInTheDocument()
 })
 
-test('tool name links to correct category path based on pillar', () => {
+test('entire card links to correct tool detail path', () => {
   render(<ToolCard tool={mockTool} />)
-  // mockTool has pillar: 'Marketing Tools' → marketing-tools
-  const nameLink = screen.getByRole('link', { name: 'ConvertKit' })
-  expect(nameLink).toHaveAttribute('href', '/directory/marketing-tools/convertkit')
+  const link = screen.getByRole('link')
+  expect(link).toHaveAttribute('href', '/directory/marketing-tools/convertkit')
 })
 
 test('insurance tool links to insurance hub path', () => {
@@ -68,14 +71,15 @@ test('insurance tool links to insurance hub path', () => {
     slug: 'markel',
     pillar: 'Insurance',
     category: 'Liability Insurance',
+    tagline: 'UK specialist for retreat liability.',
   }
   render(<ToolCard tool={insuranceTool} />)
-  const nameLink = screen.getByRole('link', { name: 'Markel' })
-  expect(nameLink).toHaveAttribute('href', '/directory/insurance/markel')
+  const link = screen.getByRole('link')
+  expect(link).toHaveAttribute('href', '/directory/insurance/markel')
 })
 
-test('does not show Unrated for tools with no verdict', () => {
-  const noVerdictTool: Tool = { ...mockTool, turfVerdict: null, recommended: false }
-  render(<ToolCard tool={noVerdictTool} />)
-  expect(screen.queryByText('Unrated')).not.toBeInTheDocument()
+test('does not show verdict badge', () => {
+  render(<ToolCard tool={mockTool} />)
+  expect(screen.queryByText('Recommended')).not.toBeInTheDocument()
+  expect(screen.queryByText('Neutral')).not.toBeInTheDocument()
 })

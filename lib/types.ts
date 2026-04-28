@@ -2,6 +2,7 @@ export interface Tool {
   id: string
   name: string
   slug: string
+  tagline: string | null
   description: string
   pillar: string
   category: string
