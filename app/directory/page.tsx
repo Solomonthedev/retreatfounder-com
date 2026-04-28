@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { fetchTools } from '@/lib/airtable'
 import { getFormId } from '@/lib/convertkit'
 import { DirectoryLibrary } from '@/components/DirectoryLibrary'
@@ -131,7 +132,9 @@ export default async function DirectoryPage() {
 
       {/* Library — full width, no sidebar */}
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 32px' }}>
-        <DirectoryLibrary tools={tools} inserts={inserts} />
+        <Suspense fallback={<div style={{ padding: '40px 0', color: 'var(--color-ink-40)', fontFamily: 'inherit' }}>Loading tools…</div>}>
+          <DirectoryLibrary tools={tools} inserts={inserts} />
+        </Suspense>
       </div>
     </>
   )
