@@ -63,7 +63,7 @@ export function Nav() {
             The letter
           </Link>
           <Link
-            href="/directory/marketing-tools/"
+            href="/directory/"
             className="font-body text-sm font-semibold no-underline transition-colors"
             style={{
               background: 'var(--color-ember)',

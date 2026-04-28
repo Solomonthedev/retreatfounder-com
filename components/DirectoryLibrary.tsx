@@ -130,6 +130,12 @@ export function DirectoryLibrary({ tools, inserts = [] }: Props) {
   const hasFilters = activeCategories.length > 0 || activePrices.length > 0 || activeUseCases.length > 0 || search.trim().length > 0
   const activeCount = activeCategories.length + activePrices.length + activeUseCases.length
 
+  const insertMap = useMemo(() => {
+    const m = new Map<number, ReactNode>()
+    if (!hasFilters) inserts.forEach((ins) => m.set(ins.afterIndex, ins.node))
+    return m
+  }, [inserts, hasFilters])
+
   return (
     <div style={{ padding: '40px 0 96px' }}>
 
@@ -254,8 +260,8 @@ export function DirectoryLibrary({ tools, inserts = [] }: Props) {
         >
           {filtered.reduce<ReactNode[]>((acc, tool, i) => {
             acc.push(<ToolCard key={tool.id} tool={tool} />)
-            const insert = inserts.find((ins) => ins.afterIndex === i)
-            if (insert) acc.push(<div key={`insert-${i}`}>{insert.node}</div>)
+            const insert = insertMap.get(i)
+            if (insert) acc.push(<div key={`insert-${i}`}>{insert}</div>)
             return acc
           }, [])}
         </div>

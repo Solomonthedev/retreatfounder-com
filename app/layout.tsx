@@ -23,6 +23,9 @@ const BEEHIIV_EMBED_URL = process.env.BEEHIIV_EMBED_URL ?? 'https://embeds.beehi
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={hankenGrotesk.variable}>
+      <head>
+        <link rel="preload" href="/fonts/Brownist.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+      </head>
       <body className="bg-cream text-ink font-body min-h-screen flex flex-col">
         <Nav />
         <main className="flex-1">{children}</main>

@@ -1,4 +1,3 @@
-'use client'
 import Link from 'next/link'
 import type { Tool } from '@/lib/types'
 import { pillarToHubSlug } from '@/lib/pillar'
@@ -24,23 +23,12 @@ export function ToolCard({ tool }: Props) {
   return (
     <Link
       href={href}
-      className="no-underline flex flex-col group"
+      className="no-underline flex flex-col group card-hover"
       style={{
         background: 'var(--color-cream)',
         borderRadius: 12,
         overflow: 'hidden',
         boxShadow: 'var(--shadow-card)',
-        transition: 'box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out)',
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.boxShadow = 'var(--shadow-lift)'
-        el.style.transform = 'translateY(-3px)'
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.boxShadow = 'var(--shadow-card)'
-        el.style.transform = 'translateY(0)'
       }}
     >
       {/* Visual area — screenshot or gradient */}

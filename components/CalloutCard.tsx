@@ -116,7 +116,7 @@ export function PartnerCallout({ name, tagline, href, logoUrl }: PartnerCalloutP
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="no-underline"
+      className="no-underline callout-hover"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -127,18 +127,7 @@ export function PartnerCallout({ name, tagline, href, logoUrl }: PartnerCalloutP
         padding: '24px',
         height: '100%',
         boxSizing: 'border-box',
-        transition: 'transform 180ms, box-shadow 180ms',
         cursor: 'pointer',
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.transform = 'translateY(-2px)'
-        el.style.boxShadow = 'var(--shadow-lift)'
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.transform = 'translateY(0)'
-        el.style.boxShadow = 'none'
       }}
     >
       <p
@@ -220,7 +209,7 @@ export function VideoCallout({ title, description, href, thumbnailUrl }: VideoCa
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="no-underline"
+      className="no-underline callout-hover"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -231,18 +220,7 @@ export function VideoCallout({ title, description, href, thumbnailUrl }: VideoCa
         overflow: 'hidden',
         height: '100%',
         boxSizing: 'border-box',
-        transition: 'transform 180ms, box-shadow 180ms',
         cursor: 'pointer',
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.transform = 'translateY(-2px)'
-        el.style.boxShadow = 'var(--shadow-lift)'
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement
-        el.style.transform = 'translateY(0)'
-        el.style.boxShadow = 'none'
       }}
     >
       {thumbnailUrl ? (

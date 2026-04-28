@@ -2,6 +2,8 @@ import type { MetadataRoute } from 'next'
 import { fetchTools } from '@/lib/airtable'
 import { pillarToHubSlug } from '@/lib/pillar'
 
+export const revalidate = 3600
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://retreatfounder.com'
   const tools = await fetchTools()

@@ -49,6 +49,10 @@
   --color-golden-700:      #A07020;
   --color-golden-100:      #F0DEB8;
 
+  --color-ochre:           #B58238;
+  --color-ochre-700:       #A07020;
+  --color-ochre-100:       #F0DEB8;
+
   --color-ink:             #221E16;
   --color-ink-80:          #3A3A33;
   --color-ink-60:          #5C5C53;
@@ -126,4 +130,27 @@ a:hover {
 }
 .btn-ember:hover {
   background: color-mix(in srgb, var(--color-ember) 80%, black) !important;
+}
+
+.card-hover {
+  transition: box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+.card-hover:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-3px);
+}
+
+.callout-hover {
+  transition: box-shadow 180ms var(--ease-out), transform 180ms var(--ease-out);
+}
+.callout-hover:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr 320px !important;
+    gap: 48px !important;
+  }
 }

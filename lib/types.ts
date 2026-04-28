@@ -36,12 +36,3 @@ export interface AffiliatePartner {
   commissionRate: string | null
   network: string | null
 }
-
-export interface ConvertKitSubscribePayload {
-  email: string
-  formId: string
-  fields?: {
-    retreat_website?: string
-    first_name?: string
-  }
-}

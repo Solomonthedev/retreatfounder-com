@@ -45,9 +45,9 @@ export default async function DirectoryPage() {
   return (
     <>
       {/* Hero — headline left, newsletter module right */}
-      <section style={{ borderBottom: '1px solid var(--color-ink)', padding: '56px 32px 64px' }}>
+      <section style={{ borderBottom: '1px solid var(--color-ink)', padding: 'clamp(32px, 5vw, 56px) clamp(16px, 4vw, 32px) clamp(40px, 5vw, 64px)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 48, alignItems: 'start' }}>
+          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 40, alignItems: 'start' }}>
 
             {/* Left — headline + nav pills */}
             <div>
@@ -59,7 +59,7 @@ export default async function DirectoryPage() {
               </p>
               <h1
                 className="font-display text-ink uppercase"
-                style={{ fontSize: 64, lineHeight: 0.95, letterSpacing: '0.005em', margin: '0 0 20px' }}
+                style={{ fontSize: 'clamp(36px, 6vw, 64px)', lineHeight: 0.95, letterSpacing: '0.005em', margin: '0 0 20px' }}
               >
                 Every tool.<br />
                 <span style={{ color: 'var(--color-ember)' }}>Honestly curated.</span>

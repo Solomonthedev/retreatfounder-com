@@ -50,9 +50,11 @@ export async function fetchTools(): Promise<Tool[]> {
 }
 
 export async function fetchTool(slug: string, pillar?: string): Promise<Tool | null> {
+  if (!/^[a-z0-9-]+$/.test(slug)) return null
+  const safeSlug = slug.replace(/"/g, '\\"')
   const data = await airtableFetch(
     'Resources',
-    `?filterByFormula=({Slug}="${slug}")`
+    `?filterByFormula=({Slug}="${safeSlug}")`
   )
   if (!data.records.length) return null
   const tool = recordToTool(data.records[0])
