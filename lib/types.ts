@@ -7,10 +7,12 @@ export interface Tool {
   pillar: string
   category: string
   tags: string[]
+  useCases: string[]
   logoUrl: string | null
   priceRange: string | null
   turfVerdict: string | null
   website: string | null
+  screenshotUrl: string | null
   affiliateUrl: string | null
   featured: boolean
   recommended: boolean

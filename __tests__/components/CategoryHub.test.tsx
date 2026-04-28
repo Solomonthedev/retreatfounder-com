@@ -11,6 +11,8 @@ const mockTool: Tool = {
   category: 'Email Marketing',
   tags: ['Email'],
   logoUrl: null,
+  screenshotUrl: null,
+  useCases: [],
   priceRange: 'Free – $29/mo',
   turfVerdict: 'Recommended',
   website: null,

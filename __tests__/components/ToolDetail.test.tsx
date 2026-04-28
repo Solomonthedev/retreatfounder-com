@@ -12,6 +12,8 @@ const mockTool: Tool = {
   category: 'Email Marketing',
   tags: ['Email', 'Sequences'],
   logoUrl: null,
+  screenshotUrl: null,
+  useCases: [],
   priceRange: 'Free – $29/mo',
   turfVerdict: 'Recommended',
   affiliateUrl: 'https://convertkit.com?ref=trf',
