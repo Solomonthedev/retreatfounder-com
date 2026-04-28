@@ -48,8 +48,8 @@ function recordToTool(record: { id: string; fields: Record<string, unknown> }): 
     screenshotUrl: f['Screenshot URL'] ? String(f['Screenshot URL']) : null,
     turfVerdict: f['TRF Verdict'] ? String(f['TRF Verdict']) : null,
     affiliateUrl: f['Affiliate Link'] ? String(f['Affiliate Link']) : null,
-    featured: String(f['TRF Verdict'] ?? '') === 'Featured',
-    recommended: String(f['TRF Verdict'] ?? '') === 'Recommended',
+    featured: typeof f['TRF Featured'] === 'boolean' ? f['TRF Featured'] : String(f['TRF Verdict'] ?? '') === 'Featured',
+    recommended: typeof f['TRF Recommended'] === 'boolean' ? f['TRF Recommended'] : String(f['TRF Verdict'] ?? '') === 'Recommended',
     status: (f['Status'] as Tool['status']) ?? 'Live',
   }
 }

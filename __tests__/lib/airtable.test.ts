@@ -63,7 +63,31 @@ test('fetchTool returns null if pillar does not match', async () => {
   ;(fetch as jest.Mock).mockResolvedValueOnce(
     mockAirtableResponse([mockToolRecord])
   )
-  // mockToolRecord has Pillar: 'Marketing Tools', but we request with pillar='Insurance'
   const tool = await fetchTool('convertkit', 'Insurance')
   expect(tool).toBeNull()
+})
+
+test('featured/recommended fall back to TRF Verdict string when checkbox fields absent', async () => {
+  ;(fetch as jest.Mock).mockResolvedValueOnce(
+    mockAirtableResponse([{ ...mockToolRecord, fields: { ...mockToolRecord.fields, 'TRF Verdict': 'Featured' } }])
+  )
+  const tools = await fetchTools()
+  expect(tools[0].featured).toBe(true)
+  expect(tools[0].recommended).toBe(false)
+})
+
+test('featured/recommended use dedicated checkbox fields when present', async () => {
+  const record = {
+    ...mockToolRecord,
+    fields: {
+      ...mockToolRecord.fields,
+      'TRF Verdict': 'Recommended', // should be overridden by checkboxes
+      'TRF Featured': true,
+      'TRF Recommended': true,
+    },
+  }
+  ;(fetch as jest.Mock).mockResolvedValueOnce(mockAirtableResponse([record]))
+  const tools = await fetchTools()
+  expect(tools[0].featured).toBe(true)
+  expect(tools[0].recommended).toBe(true)
 })
