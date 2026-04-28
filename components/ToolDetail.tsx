@@ -10,8 +10,19 @@ interface ToolDetailProps {
 }
 
 export function ToolDetail({ tool, hubPath, hubLabel }: ToolDetailProps) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: tool.name,
+    description: tool.description,
+    applicationCategory: tool.pillar,
+    ...(tool.website && { url: tool.website }),
+    ...(tool.priceRange && { offers: { '@type': 'Offer', description: tool.priceRange } }),
+  }
+
   return (
     <div style={{ maxWidth: 1280, margin: '0 auto', padding: '48px 32px 96px' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* Breadcrumb */}
       <nav className="font-body" style={{ fontSize: 13, color: 'var(--color-ink-40)', marginBottom: 32 }}>
         <Link href={hubPath} className="no-underline" style={{ color: 'var(--color-field-green)' }}>

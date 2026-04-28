@@ -1,5 +1,6 @@
 'use client'
-import { useState, useMemo, useRef, useCallback } from 'react'
+import { useState, useMemo, useRef, useCallback, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import type { ReactNode } from 'react'
 import type { Tool } from '@/lib/types'
 import { ToolCard } from '@/components/ToolCard'
@@ -102,15 +103,40 @@ function PillGroup<T extends string>({
 }
 
 export function DirectoryLibrary({ tools, inserts = [] }: Props) {
-  const [search, setSearch] = useState('')
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const [search, setSearch] = useState(() => searchParams.get('q') ?? '')
+  const [activeCategories, setActiveCategories] = useState<string[]>(() =>
+    searchParams.getAll('cat').filter(Boolean)
+  )
+  const [activePrices, setActivePrices] = useState<PriceTier[]>(() =>
+    (searchParams.getAll('price') as PriceTier[]).filter((p) => (PRICE_TIERS as readonly string[]).includes(p))
+  )
+  const [activeUseCases, setActiveUseCases] = useState<string[]>(() =>
+    searchParams.getAll('use').filter(Boolean)
+  )
+
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const setSearchDebounced = useCallback((val: string) => {
+    setSearch(val)
     if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => setSearch(val), 150)
-  }, [])
-  const [activeCategories, setActiveCategories] = useState<string[]>([])
-  const [activePrices, setActivePrices] = useState<PriceTier[]>([])
-  const [activeUseCases, setActiveUseCases] = useState<string[]>([])
+    debounceRef.current = setTimeout(() => {
+      const p = new URLSearchParams(window.location.search)
+      val ? p.set('q', val) : p.delete('q')
+      router.replace(`?${p.toString()}`, { scroll: false })
+    }, 150)
+  }, [router])
+
+  useEffect(() => {
+    const p = new URLSearchParams()
+    activeCategories.forEach((c) => p.append('cat', c))
+    activePrices.forEach((pr) => p.append('price', pr))
+    activeUseCases.forEach((u) => p.append('use', u))
+    if (search) p.set('q', search)
+    router.replace(`?${p.toString()}`, { scroll: false })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCategories, activePrices, activeUseCases])
 
   const pillars = PILLARS
 

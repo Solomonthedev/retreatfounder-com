@@ -9,6 +9,18 @@ export const metadata: Metadata = {
   title: 'The Directory — The Retreat Founder',
   description:
     'Every tool, resource, and service a retreat founder needs — curated honestly. Search and filter by category, price, and what you\'re trying to do.',
+  openGraph: {
+    title: 'The Retreat Founder — Resource Directory',
+    description: 'Every tool a retreat founder needs. Curated honestly. No sponsored rankings.',
+    images: [{ url: '/og-directory.svg', width: 1200, height: 630 }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Retreat Founder — Resource Directory',
+    description: 'Every tool a retreat founder needs. Curated honestly. No sponsored rankings.',
+    images: ['/og-directory.svg'],
+  },
 }
 
 export const revalidate = 60
@@ -43,8 +55,24 @@ export default async function DirectoryPage() {
     },
   ]
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Retreat Founder Resource Directory',
+    description: 'Curated tools for retreat founders across insurance, booking, marketing, legal, and photography.',
+    numberOfItems: tools.length,
+    itemListElement: tools.map((tool, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: tool.name,
+      url: `https://retreatfounder.com/directory/${tool.pillar.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}/${tool.slug}`,
+      description: tool.description,
+    })),
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* Hero — headline left, newsletter module right */}
       <section style={{ borderBottom: '1px solid var(--color-ink)', padding: 'clamp(32px, 5vw, 56px) clamp(16px, 4vw, 32px) clamp(40px, 5vw, 64px)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>

@@ -11,6 +11,7 @@ const config: Config = {
     '^@/(.*)$': '<rootDir>/$1',
     '^next/cache$': '<rootDir>/__mocks__/next-cache.ts',
     '^@vercel/analytics$': '<rootDir>/__mocks__/@vercel/analytics.ts',
+    '^next/navigation$': '<rootDir>/__mocks__/next-navigation.ts',
   },
 }
 

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Tool } from '@/lib/types'
 import { pillarToHubSlug } from '@/lib/pillar'
 
@@ -43,15 +44,12 @@ export function ToolCard({ tool }: Props) {
         }}
       >
         {tool.screenshotUrl ? (
-          <img
+          <Image
             src={tool.screenshotUrl}
             alt={`${tool.name} screenshot`}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'top center',
-            }}
+            fill
+            sizes="(min-width: 768px) 320px, 100vw"
+            style={{ objectFit: 'cover', objectPosition: 'top center' }}
           />
         ) : (
           <div style={{
@@ -62,17 +60,12 @@ export function ToolCard({ tool }: Props) {
             justifyContent: 'center',
           }}>
             {tool.logoUrl ? (
-              <img
+              <Image
                 src={tool.logoUrl}
                 alt={`${tool.name} logo`}
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: 12,
-                  objectFit: 'contain',
-                  background: 'rgba(255,255,255,0.12)',
-                  padding: 8,
-                }}
+                width={56}
+                height={56}
+                style={{ borderRadius: 12, objectFit: 'contain', background: 'rgba(255,255,255,0.12)', padding: 8 }}
               />
             ) : (
               <span
