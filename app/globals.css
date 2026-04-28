@@ -140,6 +140,10 @@ a:hover {
   transform: translateY(-3px);
 }
 
+.footer-link:hover {
+  color: var(--color-sticky) !important;
+}
+
 .callout-hover {
   transition: box-shadow 180ms var(--ease-out), transform 180ms var(--ease-out);
 }

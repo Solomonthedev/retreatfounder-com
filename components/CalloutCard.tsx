@@ -1,11 +1,10 @@
 'use client'
-import Link from 'next/link'
 import { useState } from 'react'
 import { subscribeToForm } from '@/lib/convertkit'
 
 /* ─── Newsletter variant ─────────────────────────────────────────────── */
 interface NewsletterCalloutProps {
-  formId: string
+  formId: string | null
   compact?: boolean
 }
 
@@ -15,6 +14,7 @@ export function NewsletterCallout({ formId, compact = false }: NewsletterCallout
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (!formId) return
     setStatus('loading')
     const res = await subscribeToForm({ email, formId })
     setStatus(res.success ? 'success' : 'error')
@@ -57,6 +57,10 @@ export function NewsletterCallout({ formId, compact = false }: NewsletterCallout
         <p className="font-body" style={{ fontSize: 14, color: 'var(--color-field-green)', fontWeight: 600 }}>
           You&rsquo;re on the list.
         </p>
+      ) : !formId ? (
+        <p className="font-body" style={{ fontSize: 12, color: 'var(--color-ink-40)', margin: 0 }}>
+          Coming soon.
+        </p>
       ) : (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <input
@@ -65,6 +69,7 @@ export function NewsletterCallout({ formId, compact = false }: NewsletterCallout
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
+            aria-label="Email address"
             style={{
               padding: '9px 12px',
               fontSize: 13,
@@ -102,58 +107,6 @@ export function NewsletterCallout({ formId, compact = false }: NewsletterCallout
   )
 }
 
-/* ─── Partner spotlight variant ─────────────────────────────────────── */
-interface PartnerCalloutProps {
-  name: string
-  tagline: string
-  href: string
-  logoUrl?: string | null
-}
-
-export function PartnerCallout({ name, tagline, href, logoUrl }: PartnerCalloutProps) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="no-underline callout-hover"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 12,
-        background: 'var(--color-ochre)',
-        border: '2px solid var(--color-ink)',
-        borderRadius: 12,
-        padding: '24px',
-        height: '100%',
-        boxSizing: 'border-box',
-        cursor: 'pointer',
-      }}
-    >
-      <p
-        className="font-body font-semibold"
-        style={{ fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(26,26,26,0.6)', margin: 0 }}
-      >
-        Placement partner
-      </p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        {logoUrl && (
-          <img src={logoUrl} alt={name} style={{ width: 40, height: 40, borderRadius: 8, objectFit: 'contain', background: '#fff', padding: 4 }} />
-        )}
-        <h3 className="font-display text-ink uppercase" style={{ fontSize: 24, lineHeight: 1.0, margin: 0 }}>
-          {name}
-        </h3>
-      </div>
-      <p className="font-body text-ink" style={{ fontSize: 13, lineHeight: 1.5, flex: 1, margin: 0, opacity: 0.8 }}>
-        {tagline}
-      </p>
-      <span className="font-body font-semibold text-ink" style={{ fontSize: 12 }}>
-        Learn more →
-      </span>
-    </a>
-  )
-}
-
 /* ─── Advertise here (empty partner slot) ───────────────────────────── */
 export function AdvertiseHereCallout() {
   return (
@@ -184,13 +137,13 @@ export function AdvertiseHereCallout() {
       <p className="font-body" style={{ fontSize: 12, color: 'var(--color-ink-40)', lineHeight: 1.5, margin: 0 }}>
         This spot is available for tools and services built for retreat founders.
       </p>
-      <Link
-        href="/advertise"
+      <a
+        href="mailto:hello@retreatfounder.com?subject=Placement%20enquiry"
         className="font-body font-semibold no-underline"
         style={{ fontSize: 12, color: 'var(--color-field-green)' }}
       >
-        See placement options →
-      </Link>
+        Get in touch →
+      </a>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { fetchTools } from '@/lib/airtable'
+import { getFormId } from '@/lib/convertkit'
 import { ToolCard } from '@/components/ToolCard'
 import { StickyNote } from '@/components/StickyNote'
 import { EmailCaptureForm } from '@/components/EmailCaptureForm'
@@ -24,7 +25,7 @@ const CATEGORIES = [
 export default async function HomePage() {
   const tools = await fetchTools()
   const recommended = tools.filter((t) => t.recommended).slice(0, 3)
-  const NOTIFY_FORM = process.env.CONVERTKIT_NOTIFY_FORM_ID ?? 'preview'
+  const NOTIFY_FORM = getFormId()
 
   return (
     <>

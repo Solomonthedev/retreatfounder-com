@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { fetchTools } from '@/lib/airtable'
+import { getFormId } from '@/lib/convertkit'
 import { DirectoryLibrary } from '@/components/DirectoryLibrary'
 import { NewsletterCallout, AdvertiseHereCallout, VideoCallout } from '@/components/CalloutCard'
 
@@ -22,7 +23,7 @@ const CATEGORY_LINKS = [
 
 export default async function DirectoryPage() {
   const tools = await fetchTools()
-  const formId = process.env.CONVERTKIT_NOTIFY_FORM_ID ?? 'preview'
+  const formId = getFormId()
 
   // Grid inserts — callout cards woven into the tool grid
   const inserts = [

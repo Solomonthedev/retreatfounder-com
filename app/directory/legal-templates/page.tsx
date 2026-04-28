@@ -13,7 +13,7 @@ export const revalidate = 60
 export default async function LegalTemplatesHub() {
   const tools = await fetchTools()
   const legalTools = tools.filter((t) => t.pillar === 'Legal Templates')
-  const formId = process.env.CONVERTKIT_NOTIFY_FORM_ID ?? 'preview'
+  const formId = getFormId()
 
   return (
     <CategoryHub

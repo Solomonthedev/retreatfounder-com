@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { EmailCaptureForm } from '@/components/EmailCaptureForm'
 import { StickyNote } from '@/components/StickyNote'
+import { getFormId } from '@/lib/convertkit'
 
 export const metadata: Metadata = {
   title: 'The Letter — Weekly resources for retreat founders',
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     'A short Friday letter for retreat founders. New tools, honest verdicts, and one specific thing that worked this week. No founder content. No funnel talk.',
 }
 
-const NOTIFY_FORM = process.env.CONVERTKIT_NOTIFY_FORM_ID ?? 'preview'
+const NOTIFY_FORM = getFormId()
 
 export default function NewsletterPage() {
   return (

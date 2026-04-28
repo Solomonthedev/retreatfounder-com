@@ -13,7 +13,7 @@ export const revalidate = 60
 export default async function MarketingToolsHub() {
   const tools = await fetchTools()
   const marketingTools = tools.filter((t) => t.pillar === 'Marketing Tools')
-  const formId = process.env.CONVERTKIT_NOTIFY_FORM_ID ?? 'preview'
+  const formId = getFormId()
 
   return (
     <CategoryHub

@@ -11,9 +11,10 @@ test('renders email input and submit button', () => {
   expect(screen.getByRole('button', { name: /notify me/i })).toBeInTheDocument()
 })
 
-test('renders retreat website optional field', () => {
-  render(<EmailCaptureForm formId="123" label="Notify me" />)
-  expect(screen.getByPlaceholderText(/retreat website/i)).toBeInTheDocument()
+test('renders nothing when formId is null', () => {
+  render(<EmailCaptureForm formId={null} label="Notify me" />)
+  expect(screen.queryByRole('button')).not.toBeInTheDocument()
+  expect(screen.getByText(/coming soon/i)).toBeInTheDocument()
 })
 
 test('submits form and shows success message', async () => {

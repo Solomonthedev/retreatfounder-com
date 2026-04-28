@@ -13,7 +13,7 @@ export const revalidate = 60
 export default async function BookingSoftwareHub() {
   const tools = await fetchTools()
   const bookingTools = tools.filter((t) => t.pillar === 'Booking Software')
-  const formId = process.env.CONVERTKIT_NOTIFY_FORM_ID ?? 'preview'
+  const formId = getFormId()
 
   return (
     <CategoryHub

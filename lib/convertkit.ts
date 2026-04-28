@@ -1,3 +1,8 @@
+export function getFormId(): string | null {
+  const id = process.env.CONVERTKIT_NOTIFY_FORM_ID ?? ''
+  return /^\d+$/.test(id) ? id : null
+}
+
 interface SubscribeResult {
   success: boolean
   error?: string

@@ -18,8 +18,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://retreatfounder.com'),
 }
 
-const BEEHIIV_EMBED_URL = process.env.BEEHIIV_EMBED_URL ?? 'https://embeds.beehiiv.com/PLACEHOLDER'
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={hankenGrotesk.variable}>
@@ -29,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-cream text-ink font-body min-h-screen flex flex-col">
         <Nav />
         <main className="flex-1">{children}</main>
-        <Footer beehiivEmbedUrl={BEEHIIV_EMBED_URL} />
+        <Footer />
         <Analytics />
       </body>
     </html>

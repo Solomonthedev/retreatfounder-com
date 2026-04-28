@@ -13,7 +13,7 @@ export const revalidate = 60
 export default async function PhotographyHub() {
   const tools = await fetchTools()
   const photographyTools = tools.filter((t) => t.pillar === 'Photography')
-  const formId = process.env.CONVERTKIT_NOTIFY_FORM_ID ?? 'preview'
+  const formId = getFormId()
 
   return (
     <CategoryHub

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { subscribeToForm } from '@/lib/convertkit'
 
 interface Props {
-  formId: string
+  formId: string | null
   label: string
   placeholder?: string
   onDark?: boolean
@@ -16,17 +16,13 @@ export function EmailCaptureForm({
   onDark = false,
 }: Props) {
   const [email, setEmail] = useState('')
-  const [website, setWebsite] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (!formId) return
     setStatus('loading')
-    const result = await subscribeToForm({
-      email,
-      formId,
-      fields: { retreat_website: website || undefined },
-    })
+    const result = await subscribeToForm({ email, formId })
     setStatus(result.success ? 'success' : 'error')
   }
 
@@ -40,6 +36,14 @@ export function EmailCaptureForm({
         }}
       >
         {"You're on the list — see you Friday."}
+      </p>
+    )
+  }
+
+  if (!formId) {
+    return (
+      <p className="font-body" style={{ fontSize: 14, color: onDark ? 'rgba(245,240,232,0.5)' : 'var(--color-ink-40)' }}>
+        Newsletter coming soon.
       </p>
     )
   }
@@ -59,11 +63,11 @@ export function EmailCaptureForm({
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <label htmlFor="email" className="sr-only">
+      <label htmlFor="email-capture" className="sr-only">
         Email address
       </label>
       <input
-        id="email"
+        id="email-capture"
         type="email"
         required
         value={email}
@@ -79,26 +83,10 @@ export function EmailCaptureForm({
             onDark ? 'var(--color-cream)' : 'var(--color-cream-300)'
         }}
       />
-      <input
-        type="url"
-        value={website}
-        onChange={(e) => setWebsite(e.target.value)}
-        placeholder="Your retreat website (optional)"
-        aria-label="retreat website"
-        style={inputStyle}
-        onFocus={(e) => {
-          ;(e.currentTarget as HTMLInputElement).style.borderColor =
-            onDark ? 'var(--color-sticky)' : 'var(--color-field-green)'
-        }}
-        onBlur={(e) => {
-          ;(e.currentTarget as HTMLInputElement).style.borderColor =
-            onDark ? 'var(--color-cream)' : 'var(--color-cream-300)'
-        }}
-      />
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="font-body font-semibold"
+        className="font-body font-semibold btn-ember"
         style={{
           fontSize: 15,
           padding: '11px 20px',
@@ -108,14 +96,6 @@ export function EmailCaptureForm({
           background: 'var(--color-ember)',
           color: 'var(--color-cream)',
           opacity: status === 'loading' ? 0.6 : 1,
-          transition: 'background 140ms var(--ease-out)',
-        }}
-        onMouseOver={(e) => {
-          if (status !== 'loading')
-            (e.currentTarget as HTMLElement).style.background = 'var(--color-ember-700)'
-        }}
-        onMouseOut={(e) => {
-          ;(e.currentTarget as HTMLElement).style.background = 'var(--color-ember)'
         }}
       >
         {status === 'loading' ? 'Submitting…' : label}
