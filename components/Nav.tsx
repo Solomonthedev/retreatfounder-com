@@ -69,7 +69,7 @@ export function Nav() {
               background: 'var(--color-ember)',
               color: 'var(--color-cream)',
               padding: '10px 20px',
-              borderRadius: 4,
+              borderRadius: 2,
             }}
             onMouseOver={(e) =>
               ((e.currentTarget as HTMLElement).style.background =

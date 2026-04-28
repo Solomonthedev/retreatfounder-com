@@ -32,7 +32,7 @@ export function CategoryHub({
               <p className="font-body font-semibold" style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-field-green)', marginBottom: 16 }}>
                 The Retreat Founder · {pillarName} · {tools.length} tools curated
               </p>
-              <h1 className="font-display text-ink uppercase" style={{ fontSize: 72, lineHeight: 0.95, letterSpacing: '0.005em', margin: '0 0 24px' }}>
+              <h1 className="font-display text-ink uppercase" style={{ fontSize: 56, lineHeight: 0.95, letterSpacing: '0.005em', margin: '0 0 24px' }}>
                 {headline}<br />
                 <span style={{ color: 'var(--color-ember)' }}>{headlineAccent}</span>
               </h1>
@@ -57,7 +57,7 @@ export function CategoryHub({
             <p className="font-body font-semibold" style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-field-green)', marginBottom: 24 }}>
               Editor&rsquo;s picks
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, paddingBottom: 56 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28, paddingBottom: 56 }}>
               {featured.map((tool) => <ToolCard key={tool.id} tool={tool} />)}
             </div>
           </div>
@@ -77,7 +77,7 @@ export function CategoryHub({
               <p className="font-body font-semibold" style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-ink-40)', marginBottom: 24 }}>
                 All tools
               </p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
                 {rest.map((tool) => <ToolCard key={tool.id} tool={tool} />)}
               </div>
             </>

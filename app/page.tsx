@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { fetchTools } from '@/lib/airtable'
 import { getFormId } from '@/lib/convertkit'
 import { ToolCard } from '@/components/ToolCard'
-import { StickyNote } from '@/components/StickyNote'
 import { EmailCaptureForm } from '@/components/EmailCaptureForm'
 
 export const metadata: Metadata = {
@@ -57,8 +56,8 @@ export default async function HomePage() {
             <h1
               className="font-display text-ink uppercase"
               style={{
-                fontSize: 96,
-                lineHeight: 0.92,
+                fontSize: 68,
+                lineHeight: 0.95,
                 letterSpacing: '0.005em',
                 margin: '0 0 32px',
               }}
@@ -110,13 +109,13 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Right: category index + sticky */}
+          {/* Right: clean ruled category index */}
           <div style={{ position: 'relative' }}>
             <div
               style={{
-                background: 'var(--color-field-green)',
-                borderRadius: 8,
-                padding: '32px 28px',
+                background: 'transparent',
+                border: '1px solid var(--color-ink)',
+                padding: '28px 0 0',
               }}
             >
               <p
@@ -125,29 +124,22 @@ export default async function HomePage() {
                   fontSize: 10,
                   letterSpacing: '0.18em',
                   textTransform: 'uppercase',
-                  color: 'var(--color-sticky)',
-                  marginBottom: 20,
+                  color: 'var(--color-ink-40)',
+                  padding: '0 0 16px 20px',
+                  margin: 0,
                 }}
               >
                 In the directory
               </p>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                 {CATEGORIES.map(({ label, href }) => (
-                  <li key={href} style={{ borderTop: '1px solid rgba(241, 231, 209, 0.15)', padding: '14px 0' }}>
-                    <Link href={href} className="font-body no-underline" style={{ fontSize: 17, fontWeight: 500, color: 'var(--color-cream)' }}>
+                  <li key={href} style={{ borderTop: '1px solid var(--color-ink)', padding: '14px 20px' }}>
+                    <Link href={href} className="font-body no-underline" style={{ fontSize: 15, fontWeight: 500, color: 'var(--color-ink)' }}>
                       {label}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
-            <div style={{ position: 'absolute', right: -24, bottom: -18 }}>
-              <StickyNote
-                quote="You can't just post once and hope people show up."
-                attribution="From the community"
-                rotate={2.5}
-                maxWidth={210}
-              />
             </div>
           </div>
         </div>
@@ -270,12 +262,14 @@ export default async function HomePage() {
             </div>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <StickyNote
-              quote="The only resource that treats retreat founders like the business owners they are."
-              attribution="The Retreat Founder"
-              rotate={2.4}
-              maxWidth={280}
-            />
+            <blockquote style={{ borderLeft: '2px solid var(--color-field-green-300)', paddingLeft: 20, margin: 0 }}>
+              <p className="font-body" style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--color-field-green-300)', fontStyle: 'italic', margin: '0 0 12px' }}>
+                &ldquo;The only resource that treats retreat founders like the business owners they are.&rdquo;
+              </p>
+              <cite className="font-body" style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-field-green-300)', fontStyle: 'normal' }}>
+                The Retreat Founder
+              </cite>
+            </blockquote>
           </div>
         </div>
       </section>
