@@ -9,6 +9,8 @@ const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
+    '^next/cache$': '<rootDir>/__mocks__/next-cache.ts',
+    '^@vercel/analytics$': '<rootDir>/__mocks__/@vercel/analytics.ts',
   },
 }
 

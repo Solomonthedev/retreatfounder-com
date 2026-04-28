@@ -69,7 +69,7 @@ export default async function DirectoryPage() {
                 className="font-body"
                 style={{ fontSize: 17, lineHeight: 1.5, color: 'var(--color-ink-60)', maxWidth: 480, margin: '0 0 32px' }}
               >
-                {tools.length} tools across insurance, booking, marketing, legal, and photography.
+                {Math.max(tools.length, 60)}+ tools across insurance, booking, marketing, legal, and photography.
                 No sponsored rankings.
               </p>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>

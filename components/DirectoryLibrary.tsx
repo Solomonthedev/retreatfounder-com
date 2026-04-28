@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useCallback } from 'react'
 import type { ReactNode } from 'react'
 import type { Tool } from '@/lib/types'
 import { ToolCard } from '@/components/ToolCard'
@@ -14,6 +14,15 @@ interface Props {
   inserts?: GridInsert[]
 }
 
+// Canonical pillar order — business priority, not alphabetical
+const PILLARS = [
+  'Insurance',
+  'Booking Software',
+  'Marketing Tools',
+  'Legal Templates',
+  'Photography',
+] as const
+
 const PRICE_TIERS = ['Free', 'Freemium', 'Paid'] as const
 type PriceTier = typeof PRICE_TIERS[number]
 
@@ -27,8 +36,9 @@ const USE_CASES = [
 
 function getPriceTier(priceRange: string | null): PriceTier {
   if (!priceRange) return 'Paid'
-  const p = priceRange.toLowerCase()
-  if (p === 'free') return 'Free'
+  const p = priceRange.toLowerCase().trim()
+  if (p === 'free' || p === '$0' || p === '£0' || p === '€0') return 'Free'
+  if (p.startsWith('free') || p.includes('freemium') || p.includes('free plan') || p.includes('free tier') || p.includes('/free')) return 'Freemium'
   if (p.includes('free')) return 'Freemium'
   return 'Paid'
 }
@@ -66,6 +76,7 @@ function PillGroup<T extends string>({
             <button
               key={opt}
               onClick={() => onToggle(opt)}
+              aria-pressed={isActive}
               className="font-body"
               style={{
                 padding: '6px 14px',
@@ -92,15 +103,16 @@ function PillGroup<T extends string>({
 
 export function DirectoryLibrary({ tools, inserts = [] }: Props) {
   const [search, setSearch] = useState('')
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const setSearchDebounced = useCallback((val: string) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => setSearch(val), 150)
+  }, [])
   const [activeCategories, setActiveCategories] = useState<string[]>([])
   const [activePrices, setActivePrices] = useState<PriceTier[]>([])
   const [activeUseCases, setActiveUseCases] = useState<string[]>([])
 
-  const pillars = useMemo(() => {
-    const seen = new Set<string>()
-    tools.forEach((t) => seen.add(t.pillar))
-    return Array.from(seen).sort() as string[]
-  }, [tools])
+  const pillars = PILLARS
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim()
@@ -141,6 +153,8 @@ export function DirectoryLibrary({ tools, inserts = [] }: Props) {
 
       {/* Filter bar */}
       <div
+        role="search"
+        aria-label="Filter tools"
         style={{
           background: 'var(--color-cream)',
           border: '1px solid var(--color-cream-300)',
@@ -160,11 +174,14 @@ export function DirectoryLibrary({ tools, inserts = [] }: Props) {
           >
             Search
           </span>
+          <label htmlFor="tool-search" className="sr-only">Search tools</label>
           <input
+            id="tool-search"
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearchDebounced(e.target.value)}
             placeholder="Search tools…"
+            aria-label="Search tools"
             style={{
               flex: 1,
               maxWidth: 320,
@@ -184,7 +201,7 @@ export function DirectoryLibrary({ tools, inserts = [] }: Props) {
 
         <PillGroup
           label="Category"
-          options={pillars as unknown as readonly string[]}
+          options={pillars}
           active={activeCategories}
           onToggle={(v) => toggle(setActiveCategories, v)}
         />

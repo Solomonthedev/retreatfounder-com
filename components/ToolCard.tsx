@@ -125,16 +125,18 @@ export function ToolCard({ tool }: Props) {
         </h3>
 
         {/* Category — secondary */}
-        <p
-          className="font-body"
-          style={{
-            fontSize: 11,
-            color: 'var(--color-ink-40)',
-            margin: '0 0 10px',
-          }}
-        >
-          {tool.category}
-        </p>
+        {tool.category && (
+          <p
+            className="font-body"
+            style={{
+              fontSize: 11,
+              color: 'var(--color-ink-40)',
+              margin: '0 0 10px',
+            }}
+          >
+            {tool.category}
+          </p>
+        )}
 
         {/* Tagline */}
         {tool.tagline && (

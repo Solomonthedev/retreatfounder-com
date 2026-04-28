@@ -1,4 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
+
+beforeEach(() => jest.useFakeTimers())
+afterEach(() => jest.useRealTimers())
 import { DirectoryLibrary } from '@/components/DirectoryLibrary'
 import type { Tool } from '@/lib/types'
 
@@ -95,6 +98,7 @@ test('price filter: Freemium shows freemium tools', () => {
 test('search filters by tool name', () => {
   render(<DirectoryLibrary tools={tools} />)
   fireEvent.change(screen.getByPlaceholderText('Search tools…'), { target: { value: 'Markel' } })
+  act(() => jest.runAllTimers())
   expect(screen.getByText('Markel')).toBeInTheDocument()
   expect(screen.queryByText('ConvertKit')).not.toBeInTheDocument()
 })
@@ -102,6 +106,7 @@ test('search filters by tool name', () => {
 test('search filters by description text', () => {
   render(<DirectoryLibrary tools={tools} />)
   fireEvent.change(screen.getByPlaceholderText('Search tools…'), { target: { value: 'liability' } })
+  act(() => jest.runAllTimers())
   expect(screen.getByText('Markel')).toBeInTheDocument()
   expect(screen.queryByText('ConvertKit')).not.toBeInTheDocument()
 })
@@ -109,6 +114,7 @@ test('search filters by description text', () => {
 test('shows empty state when no tools match', () => {
   render(<DirectoryLibrary tools={tools} />)
   fireEvent.change(screen.getByPlaceholderText('Search tools…'), { target: { value: 'xyznotfound' } })
+  act(() => jest.runAllTimers())
   expect(screen.getByText(/No tools match/)).toBeInTheDocument()
 })
 
