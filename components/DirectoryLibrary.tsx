@@ -1,22 +1,21 @@
 'use client'
 import { useState, useMemo } from 'react'
+import type { ReactNode } from 'react'
 import type { Tool } from '@/lib/types'
 import { ToolCard } from '@/components/ToolCard'
 
+export interface GridInsert {
+  afterIndex: number // insert this node after the nth tool card (0-based)
+  node: ReactNode
+}
+
 interface Props {
   tools: Tool[]
+  inserts?: GridInsert[]
 }
 
 const PRICE_TIERS = ['Free', 'Freemium', 'Paid'] as const
 type PriceTier = typeof PRICE_TIERS[number]
-
-function getPriceTier(priceRange: string | null): PriceTier {
-  if (!priceRange) return 'Paid'
-  const p = priceRange.toLowerCase()
-  if (p === 'free') return 'Free'
-  if (p.includes('free')) return 'Freemium'
-  return 'Paid'
-}
 
 const USE_CASES = [
   'Fill My Retreat',
@@ -26,7 +25,72 @@ const USE_CASES = [
   'Get Your Retreat Discovered',
 ] as const
 
-export function DirectoryLibrary({ tools }: Props) {
+function getPriceTier(priceRange: string | null): PriceTier {
+  if (!priceRange) return 'Paid'
+  const p = priceRange.toLowerCase()
+  if (p === 'free') return 'Free'
+  if (p.includes('free')) return 'Freemium'
+  return 'Paid'
+}
+
+function PillGroup<T extends string>({
+  label,
+  options,
+  active,
+  onToggle,
+}: {
+  label: string
+  options: readonly T[]
+  active: T[]
+  onToggle: (v: T) => void
+}) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+      <span
+        className="font-body font-semibold"
+        style={{
+          fontSize: 10,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'var(--color-ink-40)',
+          whiteSpace: 'nowrap',
+          minWidth: 72,
+        }}
+      >
+        {label}
+      </span>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {options.map((opt) => {
+          const isActive = active.includes(opt)
+          return (
+            <button
+              key={opt}
+              onClick={() => onToggle(opt)}
+              className="font-body"
+              style={{
+                padding: '6px 14px',
+                fontSize: 12,
+                fontWeight: isActive ? 600 : 400,
+                borderRadius: 999,
+                border: '1.5px solid',
+                borderColor: isActive ? 'var(--color-field-green)' : 'var(--color-cream-300)',
+                background: isActive ? 'var(--color-field-green)' : 'transparent',
+                color: isActive ? '#fff' : 'var(--color-ink-60)',
+                cursor: 'pointer',
+                transition: 'all 140ms',
+                lineHeight: 1,
+              }}
+            >
+              {opt}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export function DirectoryLibrary({ tools, inserts = [] }: Props) {
   const [search, setSearch] = useState('')
   const [activeCategories, setActiveCategories] = useState<string[]>([])
   const [activePrices, setActivePrices] = useState<PriceTier[]>([])
@@ -35,7 +99,7 @@ export function DirectoryLibrary({ tools }: Props) {
   const pillars = useMemo(() => {
     const seen = new Set<string>()
     tools.forEach((t) => seen.add(t.pillar))
-    return Array.from(seen).sort()
+    return Array.from(seen).sort() as string[]
   }, [tools])
 
   const filtered = useMemo(() => {
@@ -52,22 +116,8 @@ export function DirectoryLibrary({ tools }: Props) {
     })
   }, [tools, activeCategories, activePrices, activeUseCases, search])
 
-  function toggleCategory(pillar: string) {
-    setActiveCategories((prev) =>
-      prev.includes(pillar) ? prev.filter((c) => c !== pillar) : [...prev, pillar]
-    )
-  }
-
-  function togglePrice(tier: PriceTier) {
-    setActivePrices((prev) =>
-      prev.includes(tier) ? prev.filter((p) => p !== tier) : [...prev, tier]
-    )
-  }
-
-  function toggleUseCase(uc: string) {
-    setActiveUseCases((prev) =>
-      prev.includes(uc) ? prev.filter((u) => u !== uc) : [...prev, uc]
-    )
+  function toggle<T extends string>(setter: React.Dispatch<React.SetStateAction<T[]>>, val: T) {
+    setter((prev) => prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val])
   }
 
   function clearAll() {
@@ -78,223 +128,138 @@ export function DirectoryLibrary({ tools }: Props) {
   }
 
   const hasFilters = activeCategories.length > 0 || activePrices.length > 0 || activeUseCases.length > 0 || search.trim().length > 0
+  const activeCount = activeCategories.length + activePrices.length + activeUseCases.length
 
   return (
-    <div style={{ display: 'flex', gap: 0, minHeight: '80vh', alignItems: 'flex-start' }}>
+    <div style={{ padding: '40px 0 96px' }}>
 
-      {/* Sidebar */}
-      <aside
+      {/* Filter bar */}
+      <div
         style={{
-          width: 220,
-          flexShrink: 0,
-          position: 'sticky',
-          top: 80,
-          padding: '40px 24px 40px 0',
-          alignSelf: 'flex-start',
+          background: 'var(--color-cream)',
+          border: '1px solid var(--color-cream-300)',
+          borderRadius: 12,
+          padding: '20px 24px',
+          marginBottom: 32,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
         }}
       >
         {/* Search */}
-        <div style={{ marginBottom: 32 }}>
-          <label
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span
             className="font-body font-semibold"
-            style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-40)', display: 'block', marginBottom: 8 }}
+            style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-40)', minWidth: 72 }}
           >
             Search
-          </label>
+          </span>
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Type to filter…"
+            placeholder="Search tools…"
             style={{
-              width: '100%',
-              padding: '9px 12px',
+              flex: 1,
+              maxWidth: 320,
+              padding: '6px 12px',
               fontSize: 13,
               fontFamily: 'inherit',
               background: '#fff',
-              border: '1px solid var(--color-cream-300)',
-              borderRadius: 8,
+              border: '1.5px solid var(--color-cream-300)',
+              borderRadius: 999,
               color: 'var(--color-ink)',
               outline: 'none',
-              boxSizing: 'border-box',
             }}
           />
         </div>
 
-        {/* Category filter */}
-        <div style={{ marginBottom: 28 }}>
-          <p
-            className="font-body font-semibold"
-            style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-40)', margin: '0 0 10px' }}
-          >
-            Category
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {pillars.map((pillar) => {
-              const active = activeCategories.includes(pillar)
-              return (
-                <button
-                  key={pillar}
-                  onClick={() => toggleCategory(pillar)}
-                  className="font-body"
-                  style={{
-                    textAlign: 'left',
-                    padding: '7px 10px',
-                    fontSize: 13,
-                    borderRadius: 7,
-                    border: '1px solid',
-                    borderColor: active ? 'var(--color-field-green)' : 'transparent',
-                    background: active ? 'rgba(45,59,42,0.07)' : 'transparent',
-                    color: active ? 'var(--color-field-green)' : 'var(--color-ink-60)',
-                    cursor: 'pointer',
-                    transition: 'all 150ms',
-                    fontWeight: active ? 600 : 400,
-                  }}
-                >
-                  {pillar}
-                </button>
-              )
-            })}
-          </div>
-        </div>
+        <div style={{ height: 1, background: 'var(--color-cream-300)' }} />
 
-        {/* Price filter */}
-        <div style={{ marginBottom: 28 }}>
-          <p
-            className="font-body font-semibold"
-            style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-40)', margin: '0 0 10px' }}
-          >
-            Price
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {PRICE_TIERS.map((tier) => {
-              const active = activePrices.includes(tier)
-              return (
-                <button
-                  key={tier}
-                  onClick={() => togglePrice(tier)}
-                  className="font-body"
-                  style={{
-                    textAlign: 'left',
-                    padding: '7px 10px',
-                    fontSize: 13,
-                    borderRadius: 7,
-                    border: '1px solid',
-                    borderColor: active ? 'var(--color-field-green)' : 'transparent',
-                    background: active ? 'rgba(45,59,42,0.07)' : 'transparent',
-                    color: active ? 'var(--color-field-green)' : 'var(--color-ink-60)',
-                    cursor: 'pointer',
-                    transition: 'all 150ms',
-                    fontWeight: active ? 600 : 400,
-                  }}
-                >
-                  {tier}
-                </button>
-              )
-            })}
-          </div>
-        </div>
+        <PillGroup
+          label="Category"
+          options={pillars as unknown as readonly string[]}
+          active={activeCategories}
+          onToggle={(v) => toggle(setActiveCategories, v)}
+        />
 
-        {/* Use Case filter */}
-        <div style={{ marginBottom: 28 }}>
-          <p
-            className="font-body font-semibold"
-            style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-40)', margin: '0 0 10px' }}
-          >
-            I want to…
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {USE_CASES.map((uc) => {
-              const active = activeUseCases.includes(uc)
-              return (
-                <button
-                  key={uc}
-                  onClick={() => toggleUseCase(uc)}
-                  className="font-body"
-                  style={{
-                    textAlign: 'left',
-                    padding: '7px 10px',
-                    fontSize: 13,
-                    borderRadius: 7,
-                    border: '1px solid',
-                    borderColor: active ? 'var(--color-field-green)' : 'transparent',
-                    background: active ? 'rgba(45,59,42,0.07)' : 'transparent',
-                    color: active ? 'var(--color-field-green)' : 'var(--color-ink-60)',
-                    cursor: 'pointer',
-                    transition: 'all 150ms',
-                    fontWeight: active ? 600 : 400,
-                  }}
-                >
-                  {uc}
-                </button>
-              )
-            })}
-          </div>
-        </div>
+        <PillGroup
+          label="I want to…"
+          options={USE_CASES}
+          active={activeUseCases}
+          onToggle={(v) => toggle(setActiveUseCases, v)}
+        />
 
-        {/* Clear filters */}
+        <PillGroup
+          label="Price"
+          options={PRICE_TIERS}
+          active={activePrices}
+          onToggle={(v) => toggle(setActivePrices, v)}
+        />
+
         {hasFilters && (
-          <button
-            onClick={clearAll}
-            className="font-body"
-            style={{
-              fontSize: 11,
-              color: 'var(--color-ink-40)',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '4px 0',
-              textDecoration: 'underline',
-              textUnderlineOffset: 3,
-            }}
-          >
-            Clear all filters
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span className="font-body" style={{ fontSize: 12, color: 'var(--color-ink-40)' }}>
+              {filtered.length} of {tools.length} tools
+              {activeCount > 0 && ` · ${activeCount} filter${activeCount > 1 ? 's' : ''} active`}
+            </span>
+            <button
+              onClick={clearAll}
+              className="font-body"
+              style={{
+                fontSize: 11,
+                color: 'var(--color-ink-40)',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'underline',
+                textUnderlineOffset: 3,
+                padding: 0,
+              }}
+            >
+              Clear all
+            </button>
+          </div>
         )}
-      </aside>
+      </div>
 
-      {/* Divider */}
-      <div style={{ width: 1, background: 'var(--color-cream-300)', alignSelf: 'stretch', flexShrink: 0, marginRight: 40 }} />
+      {/* Result count when no filters */}
+      {!hasFilters && (
+        <p className="font-body" style={{ fontSize: 12, color: 'var(--color-ink-40)', margin: '0 0 24px' }}>
+          {tools.length} tools
+        </p>
+      )}
 
       {/* Grid */}
-      <main style={{ flex: 1, padding: '40px 0 96px' }}>
-        {/* Result count */}
-        <p
-          className="font-body"
-          style={{ fontSize: 12, color: 'var(--color-ink-40)', margin: '0 0 24px' }}
+      {filtered.length === 0 ? (
+        <div style={{ paddingTop: 48 }}>
+          <p className="font-body" style={{ fontSize: 16, color: 'var(--color-ink-60)' }}>
+            No tools match those filters.{' '}
+            <button
+              onClick={clearAll}
+              className="font-body"
+              style={{ color: 'var(--color-field-green)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 3, fontSize: 16, padding: 0 }}
+            >
+              Clear filters
+            </button>
+          </p>
+        </div>
+      ) : (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+            gap: 24,
+          }}
         >
-          {filtered.length === tools.length
-            ? `${tools.length} tools`
-            : `${filtered.length} of ${tools.length} tools`}
-        </p>
-
-        {filtered.length === 0 ? (
-          <div style={{ paddingTop: 48 }}>
-            <p className="font-body" style={{ fontSize: 16, color: 'var(--color-ink-60)' }}>
-              No tools match those filters.{' '}
-              <button
-                onClick={clearAll}
-                className="font-body"
-                style={{ color: 'var(--color-field-green)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 3, fontSize: 16 }}
-              >
-                Clear filters
-              </button>
-            </p>
-          </div>
-        ) : (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-              gap: 24,
-            }}
-          >
-            {filtered.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
-            ))}
-          </div>
-        )}
-      </main>
+          {filtered.reduce<ReactNode[]>((acc, tool, i) => {
+            acc.push(<ToolCard key={tool.id} tool={tool} />)
+            const insert = inserts.find((ins) => ins.afterIndex === i)
+            if (insert) acc.push(<div key={`insert-${i}`}>{insert.node}</div>)
+            return acc
+          }, [])}
+        </div>
+      )}
     </div>
   )
 }

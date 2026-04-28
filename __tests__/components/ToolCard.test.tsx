@@ -55,9 +55,9 @@ test('renders tags', () => {
   expect(screen.getByText('Forms')).toBeInTheDocument()
 })
 
-test('renders Read our take CTA', () => {
+test('renders arrow CTA', () => {
   render(<ToolCard tool={mockTool} />)
-  expect(screen.getByText(/Read our take/)).toBeInTheDocument()
+  expect(screen.getByText('→')).toBeInTheDocument()
 })
 
 test('entire card links to correct tool detail path', () => {

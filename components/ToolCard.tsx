@@ -128,27 +128,25 @@ export function ToolCard({ tool }: Props) {
 
       {/* Card body */}
       <div style={{ padding: '18px 20px 16px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-        {/* Category */}
+        {/* Name — primary hierarchy */}
+        <h3
+          className="font-display text-ink uppercase"
+          style={{ fontSize: 20, letterSpacing: '0.01em', lineHeight: 1.1, margin: '0 0 4px' }}
+        >
+          {tool.name}
+        </h3>
+
+        {/* Category — secondary */}
         <p
-          className="font-body font-semibold"
+          className="font-body"
           style={{
-            fontSize: 10,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
+            fontSize: 11,
             color: 'var(--color-ink-40)',
-            margin: '0 0 6px',
+            margin: '0 0 10px',
           }}
         >
           {tool.category}
         </p>
-
-        {/* Name */}
-        <h3
-          className="font-display text-ink uppercase"
-          style={{ fontSize: 20, letterSpacing: '0.01em', lineHeight: 1.1, margin: '0 0 8px' }}
-        >
-          {tool.name}
-        </h3>
 
         {/* Tagline */}
         {tool.tagline && (
@@ -208,15 +206,16 @@ export function ToolCard({ tool }: Props) {
             ))}
           </div>
           <span
-            className="font-body font-semibold"
+            className="font-body"
             style={{
-              fontSize: 11,
+              fontSize: 16,
               color: 'var(--color-field-green)',
               whiteSpace: 'nowrap',
               flexShrink: 0,
+              lineHeight: 1,
             }}
           >
-            Read our take →
+            →
           </span>
         </div>
       </div>

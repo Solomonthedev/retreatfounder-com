@@ -74,7 +74,7 @@ test('category filter hides non-matching tools', () => {
 test('category filter shows filtered count', () => {
   render(<DirectoryLibrary tools={tools} />)
   fireEvent.click(screen.getByRole('button', { name: 'Insurance' }))
-  expect(screen.getByText('1 of 3 tools')).toBeInTheDocument()
+  expect(screen.getByText(/1 of 3 tools/)).toBeInTheDocument()
 })
 
 test('price filter: Free shows only free tools', () => {
@@ -94,21 +94,21 @@ test('price filter: Freemium shows freemium tools', () => {
 
 test('search filters by tool name', () => {
   render(<DirectoryLibrary tools={tools} />)
-  fireEvent.change(screen.getByPlaceholderText('Type to filter…'), { target: { value: 'Markel' } })
+  fireEvent.change(screen.getByPlaceholderText('Search tools…'), { target: { value: 'Markel' } })
   expect(screen.getByText('Markel')).toBeInTheDocument()
   expect(screen.queryByText('ConvertKit')).not.toBeInTheDocument()
 })
 
 test('search filters by description text', () => {
   render(<DirectoryLibrary tools={tools} />)
-  fireEvent.change(screen.getByPlaceholderText('Type to filter…'), { target: { value: 'liability' } })
+  fireEvent.change(screen.getByPlaceholderText('Search tools…'), { target: { value: 'liability' } })
   expect(screen.getByText('Markel')).toBeInTheDocument()
   expect(screen.queryByText('ConvertKit')).not.toBeInTheDocument()
 })
 
 test('shows empty state when no tools match', () => {
   render(<DirectoryLibrary tools={tools} />)
-  fireEvent.change(screen.getByPlaceholderText('Type to filter…'), { target: { value: 'xyznotfound' } })
+  fireEvent.change(screen.getByPlaceholderText('Search tools…'), { target: { value: 'xyznotfound' } })
   expect(screen.getByText(/No tools match/)).toBeInTheDocument()
 })
 
@@ -116,7 +116,7 @@ test('clear filters button restores all tools', () => {
   render(<DirectoryLibrary tools={tools} />)
   fireEvent.click(screen.getByRole('button', { name: 'Insurance' }))
   expect(screen.queryByText('ConvertKit')).not.toBeInTheDocument()
-  fireEvent.click(screen.getByRole('button', { name: /clear all filters/i }))
+  fireEvent.click(screen.getByRole('button', { name: /clear all/i }))
   expect(screen.getByText('ConvertKit')).toBeInTheDocument()
 })
 
