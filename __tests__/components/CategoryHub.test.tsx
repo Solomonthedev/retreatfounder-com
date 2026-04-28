@@ -6,6 +6,7 @@ const mockTool: Tool = {
   id: 'rec1',
   name: 'ConvertKit',
   slug: 'convertkit',
+  tagline: 'Email marketing built for creators.',
   description: 'Email marketing built for creators.',
   pillar: 'Marketing Tools',
   category: 'Email Marketing',

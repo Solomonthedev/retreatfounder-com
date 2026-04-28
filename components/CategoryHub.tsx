@@ -8,7 +8,7 @@ interface CategoryHubProps {
   headlineAccent: string
   bodyText: string
   tools: Tool[]
-  formId: string
+  formId: string | null
 }
 
 export function CategoryHub({
