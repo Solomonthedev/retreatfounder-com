@@ -123,19 +123,66 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Stats bar */}
-        <div style={{ maxWidth: 1240, margin: '40px auto 0', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: '1px dashed var(--color-rule)', paddingTop: 18 }}>
-          {[
-            { k: 'Resources', v: `${toolCount} vetted` },
-            { k: 'Industry reality', v: '80% don\'t make money' },
-            { k: 'The actual target', v: '90% full' },
-            { k: 'Updated', v: 'Every Wednesday' },
-          ].map(({ k, v }, i) => (
-            <div key={k} style={{ paddingLeft: i > 0 ? 24 : 0, borderLeft: i > 0 ? '1px dashed var(--color-rule)' : 'none' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-3)', marginBottom: 6 }}>{k}</div>
-              <div style={{ fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 400, letterSpacing: '-0.01em', color: 'var(--color-ink)' }}>{v}</div>
+        {/* Stats bar — glyph promise cards */}
+        <div style={{ maxWidth: 1240, margin: '40px auto 0', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: '1px dashed var(--color-rule)' }}>
+          {/* Card 1 — Welcome */}
+          <div style={{ padding: '20px 20px 22px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <Glyph name="Mountain" size={28} color="var(--color-red)" strokeWidth={1.1} />
+            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 400, letterSpacing: '-0.01em', color: 'var(--color-ink)', lineHeight: 1.25 }}>
+              For the solo retreat founder.
             </div>
-          ))}
+            <div style={{ fontFamily: 'var(--font-body)', fontSize: 11, color: 'var(--color-ink-3)', lineHeight: 1.55 }}>
+              Written by one, for one. No corporate voice.
+            </div>
+          </div>
+
+          {/* Card 2 — Trust */}
+          <div style={{ padding: '20px 20px 22px', borderLeft: '1px dashed var(--color-rule)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <Glyph name="Bowl" size={28} color="var(--color-red)" strokeWidth={1.1} />
+            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 400, letterSpacing: '-0.01em', color: 'var(--color-ink)', lineHeight: 1.25 }}>
+              {toolCount} resources. Curated, not aggregated.
+            </div>
+            <div style={{ fontFamily: 'var(--font-body)', fontSize: 11, color: 'var(--color-ink-3)', lineHeight: 1.55 }}>
+              Hand-checked. No commissions taken.
+            </div>
+          </div>
+
+          {/* Card 3 — Wayfinding */}
+          <div style={{ padding: '20px 20px 22px', borderLeft: '1px dashed var(--color-rule)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <Glyph name="Compass" size={28} color="var(--color-red)" strokeWidth={1.1} />
+            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 400, letterSpacing: '-0.01em', color: 'var(--color-ink)', lineHeight: 1.25 }}>
+              Five threads worth following.
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 2 }}>
+              {[
+                { label: 'Insurance', href: '/directory/insurance/' },
+                { label: 'Booking', href: '/directory/booking-software/' },
+                { label: 'Marketing', href: '/directory/marketing-tools/' },
+                { label: 'Legal', href: '/directory/legal-templates/' },
+                { label: 'Photography', href: '/directory/photography/' },
+              ].map(({ label, href }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="no-underline"
+                  style={{ fontFamily: 'var(--font-mono)', fontSize: 9, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-ink-2)', padding: '3px 8px', border: '1px solid var(--color-rule)', borderRadius: 999 }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Card 4 — Cadence */}
+          <div style={{ padding: '20px 20px 22px', borderLeft: '1px dashed var(--color-rule)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <Glyph name="Lantern" size={28} color="var(--color-red)" strokeWidth={1.1} />
+            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 400, letterSpacing: '-0.01em', color: 'var(--color-ink)', lineHeight: 1.25 }}>
+              Updated every Wednesday.
+            </div>
+            <div style={{ fontFamily: 'var(--font-body)', fontSize: 11, color: 'var(--color-ink-3)', lineHeight: 1.55 }}>
+              One thing to act on. Free, always.
+            </div>
+          </div>
         </div>
 
         {/* Rotated stamp */}
