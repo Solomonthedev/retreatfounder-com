@@ -71,15 +71,14 @@ export default async function HomePage() {
             </div>
 
             <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 5.6vw, 80px)', lineHeight: 0.98, letterSpacing: '-0.025em', fontWeight: 300, margin: '0 0 28px' }}>
-              The quiet shelf<br />
-              of{' '}
+              Hand curated{' '}
               <span style={{ position: 'relative', display: 'inline-block' }}>
                 resources
                 <span aria-hidden style={{ position: 'absolute', left: 0, right: 0, bottom: '0.06em', height: '0.32em', background: 'var(--color-red-wash)', zIndex: -1 }} />
               </span>
-              {' '}for<br />
-              people who run{' '}
-              <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--color-red)' }}>retreats.</em>
+              <br />
+              for people who{' '}
+              <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--color-red)' }}>run retreats.</em>
             </h1>
 
             <p style={{ fontFamily: 'var(--font-serif)', fontSize: 19, lineHeight: 1.55, color: 'var(--color-ink-2)', maxWidth: 560, margin: '0 0 32px', fontWeight: 300 }}>
