@@ -83,17 +83,16 @@ export function CategoryHub({
           <div style={{ border: '1px solid var(--color-rule)', background: 'var(--color-paper-deep)', padding: '20px', position: 'relative', display: 'flex', flexDirection: 'column', gap: 14 }} className="signup-stripe">
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-ink-3)', display: 'flex', justifyContent: 'space-between', paddingBottom: 10, borderBottom: '1px dashed var(--color-rule)' }}>
               <span>The Newsletter <span style={{ color: 'var(--color-red)' }}>/ Weekly</span></span>
-              <span>№ 042</span>
             </div>
             <p style={{ fontFamily: 'var(--font-serif)', fontSize: 20, lineHeight: 1.2, letterSpacing: '-0.01em', color: 'var(--color-ink)', margin: 0, fontWeight: 400 }}>
               Sent every Wednesday at 7am.
             </p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: 13, lineHeight: 1.55, color: 'var(--color-ink-2)', margin: 0 }}>
-              One thoughtful note + three vetted resources for founders planning their next retreat.
+              One thing to act on. Three resources worth trusting. Written for the founder building this alone.
             </p>
             <EmailCaptureForm formId={formId} label="Subscribe →" placeholder="your@email.com" />
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-ink-3)', margin: 0 }}>
-              No spam. Unsubscribe anytime.
+              For retreat founders who want sold out retreats — without feeling sales-y.
             </p>
           </div>
         </div>

@@ -7,9 +7,9 @@ import { PillarGlyph } from '@/components/PillarGlyph'
 import { Glyph } from '@/components/Glyphs'
 
 export const metadata: Metadata = {
-  title: 'The Retreat Founder — The Resource Directory for Retreat Founders',
+  title: 'The Retreat Founder — The Resource Directory',
   description:
-    'A growing, hand-checked index of tools, playbooks, and resources for retreat founders.',
+    'Hand-checked tools, templates, and resources for retreat founders. No sponsored rankings. No 20% commissions.',
 }
 
 export const revalidate = 60
@@ -67,24 +67,23 @@ export default async function HomePage() {
           <div>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-3)', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ color: 'var(--color-red)' }}>●</span>
-              A directory for retreat founders
+              The resource directory for retreat founders
             </div>
 
             <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(44px, 5.6vw, 80px)', lineHeight: 0.98, letterSpacing: '-0.025em', fontWeight: 300, margin: '0 0 28px' }}>
-              Hand curated{' '}
+              The{' '}
               <span style={{ position: 'relative', display: 'inline-block' }}>
                 resources
                 <span aria-hidden style={{ position: 'absolute', left: 0, right: 0, bottom: '0.06em', height: '0.32em', background: 'var(--color-red-wash)', zIndex: -1 }} />
               </span>
-              <br />
-              for people who{' '}
-              <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--color-red)' }}>run retreats.</em>
+              {' '}retreat founders<br />
+              <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--color-red)' }}>actually deserve.</em>
             </h1>
 
             <p style={{ fontFamily: 'var(--font-serif)', fontSize: 19, lineHeight: 1.55, color: 'var(--color-ink-2)', maxWidth: 560, margin: '0 0 32px', fontWeight: 300 }}>
-              A growing, hand-checked index of venues, playbooks, facilitators, and
-              tools — plus a weekly newsletter for the founders, ops leads, and
-              chiefs of staff who plan offsites for a living (or are about to).
+              A hand-checked index of tools, templates, and resources — built for the
+              yoga teacher, breathwork coach, or wellness facilitator turning retreats
+              into a real business. No sponsored rankings. No 20% commissions.
             </p>
 
             {/* Glyph wayfinding row */}
@@ -113,7 +112,7 @@ export default async function HomePage() {
             </div>
 
             <p style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--color-ink-2)', margin: '0 0 16px', lineHeight: 1.5 }}>
-              One thoughtful note + three vetted resources for founders planning their next retreat.
+              One thing to act on. Three resources worth trusting. Written for the founder building this alone.
             </p>
 
             <EmailCaptureForm formId={NOTIFY_FORM} label="Subscribe →" placeholder="your@email.com" />
@@ -154,8 +153,8 @@ export default async function HomePage() {
               <span style={{ color: 'var(--color-red)' }}>●</span> Five threads we follow
             </div>
             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(28px, 3.4vw, 44px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.02em', margin: 0 }}>
-              What this directory is{' '}
-              <em style={{ fontStyle: 'italic', color: 'var(--color-red)' }}>about.</em>
+              Five things every retreat founder{' '}
+              <em style={{ fontStyle: 'italic', color: 'var(--color-red)' }}>needs to get right.</em>
             </h2>
           </div>
 

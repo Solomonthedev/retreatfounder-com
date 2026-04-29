@@ -21,7 +21,7 @@ export function Nav() {
           {/* Left — mono labels */}
           <div style={{ display: 'flex', gap: 24, alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-ink-3)' }}>
             <span>Est. 2024</span>
-            <span>Issue № 042</span>
+            <span>Hand checked</span>
           </div>
 
           {/* Centre — brand */}

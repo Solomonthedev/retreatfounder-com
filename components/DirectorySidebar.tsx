@@ -6,11 +6,11 @@ interface Props {
   tools: Tool[]
 }
 
-const RECENT_ISSUES = [
-  { num: '№ 042', title: 'The tools that actually fill retreats', date: 'Apr 22' },
-  { num: '№ 041', title: 'Insurance: what you actually need', date: 'Apr 15' },
-  { num: '№ 040', title: 'Booking software compared', date: 'Apr 08' },
-  { num: '№ 039', title: 'Legal templates for retreat founders', date: 'Apr 01' },
+const UPCOMING_GUIDES = [
+  'The tools that actually fill retreats',
+  'Insurance: what retreat founders actually need',
+  'Booking software compared — honestly',
+  'Legal templates for retreat founders',
 ]
 
 const mod: React.CSSProperties = {
@@ -48,32 +48,28 @@ export function DirectorySidebar({ tools }: Props) {
   return (
     <aside style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
 
-      {/* Recent Issues */}
+      {/* Upcoming Guides */}
       <div style={mod}>
         <div style={moduleLabel}>
           <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <Glyph name="Book" size={14} strokeWidth={1} />
-            Recent Issues
+            Upcoming guides
           </span>
-          <span style={{ color: 'var(--color-red)' }}>№ 042</span>
+          <span style={{ color: 'var(--color-red)' }}>Coming</span>
         </div>
-        {RECENT_ISSUES.map((issue) => (
+        {UPCOMING_GUIDES.map((title) => (
           <Link
-            key={issue.num}
+            key={title}
             href="/newsletter"
             className="no-underline"
-            style={{ display: 'grid', gridTemplateColumns: '44px 1fr 14px', gap: 10, padding: '12px 0', borderBottom: '1px dashed var(--color-rule)', alignItems: 'start', color: 'inherit' }}
+            style={{ display: 'grid', gridTemplateColumns: '1fr 14px', gap: 10, padding: '12px 0', borderBottom: '1px dashed var(--color-rule)', alignItems: 'start', color: 'inherit' }}
           >
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-ink-3)', letterSpacing: '0.06em', paddingTop: 3 }}>{issue.num}</div>
-            <div>
-              <div style={{ fontFamily: 'var(--font-serif)', fontSize: 14, fontWeight: 400, lineHeight: 1.3, color: 'var(--color-ink)', transition: 'color 140ms' }}>{issue.title}</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-ink-4)', letterSpacing: '0.06em', marginTop: 4 }}>{issue.date}</div>
-            </div>
+            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 14, fontWeight: 400, lineHeight: 1.3, color: 'var(--color-ink)', transition: 'color 140ms' }}>{title}</div>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--color-ink-3)', paddingTop: 3 }}>→</div>
           </Link>
         ))}
         <Link href="/newsletter" className="no-underline" style={{ display: 'inline-block', marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--color-ink)', borderBottom: '1px solid var(--color-ink)', paddingBottom: 2, textDecoration: 'none' }}>
-          Read the archive →
+          Get notified →
         </Link>
       </div>
 
