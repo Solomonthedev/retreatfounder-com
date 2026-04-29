@@ -34,13 +34,13 @@ export function Nav() {
 
           {/* Right — nav links */}
           <nav style={{ display: 'flex', gap: 24, justifyContent: 'flex-end', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            <Link href="/directory/" className="no-underline nav-link" style={{ color: 'var(--color-ink-2)' }}>
+            <Link href="/directory/marketing-tools/" className="no-underline nav-link" style={{ color: 'var(--color-ink-2)' }}>
               Directory
             </Link>
             <Link href="/newsletter" className="no-underline nav-link" style={{ color: 'var(--color-ink-2)' }}>
               Newsletter
             </Link>
-            <Link href="/directory/" className="no-underline" style={{ color: 'var(--color-red)' }}>
+            <Link href="/directory/marketing-tools/" className="no-underline" style={{ color: 'var(--color-red)' }}>
               Browse →
             </Link>
           </nav>
