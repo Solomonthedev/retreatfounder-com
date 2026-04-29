@@ -119,7 +119,7 @@ export default async function HomePage() {
             <EmailCaptureForm formId={NOTIFY_FORM} label="Subscribe →" placeholder="your@email.com" />
 
             <div style={{ marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', color: 'var(--color-ink-3)' }}>
-              No spam. Unsubscribe anytime.
+              For retreat founders who want sold out retreats — without feeling sales-y.
             </div>
           </div>
         </div>
@@ -127,10 +127,10 @@ export default async function HomePage() {
         {/* Stats bar */}
         <div style={{ maxWidth: 1240, margin: '40px auto 0', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: '1px dashed var(--color-rule)', paddingTop: 18 }}>
           {[
-            { k: 'Resources', v: `${toolCount} entries` },
-            { k: 'Categories', v: '5 pillars' },
-            { k: 'Updated', v: 'Weekly' },
-            { k: 'Coverage', v: 'Worldwide' },
+            { k: 'Resources', v: `${toolCount} vetted` },
+            { k: 'Industry reality', v: '80% don\'t make money' },
+            { k: 'The actual target', v: '90% full' },
+            { k: 'Updated', v: 'Every Wednesday' },
           ].map(({ k, v }, i) => (
             <div key={k} style={{ paddingLeft: i > 0 ? 24 : 0, borderLeft: i > 0 ? '1px dashed var(--color-rule)' : 'none' }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-3)', marginBottom: 6 }}>{k}</div>
