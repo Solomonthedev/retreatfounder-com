@@ -158,22 +158,99 @@ export const GlyphHeart = makeGlyph('0 0 64 64', (
   </>
 ))
 
+export const GlyphArch = makeGlyph('0 0 64 64', (
+  <>
+    <path d="M10 52 L 10 28 Q 10 10 32 10 Q 54 10 54 28 L 54 52" />
+    <path d="M6 52 L 58 52" strokeWidth={0.7} />
+    <path d="M22 52 L 22 36 Q 22 24 32 24 Q 42 24 42 36 L 42 52" strokeWidth={0.8} opacity={0.75} />
+    <path d="M16 16 Q 20 12 26 11" strokeWidth={0.6} opacity={0.5} />
+  </>
+))
+
+export const GlyphRoute = makeGlyph('0 0 64 64', (
+  <>
+    <circle cx="12" cy="16" r="4.5" />
+    <circle cx="52" cy="48" r="4.5" />
+    <path d="M12 21 Q 12 38 32 38 Q 52 38 52 43" />
+    <path d="M26 30 Q 32 26 38 30" strokeWidth={0.5} opacity={0.5} />
+    <path d="M44 20 L 56 26 M 50 14 L 56 26 L 44 28" strokeWidth={0.7} opacity={0.6} />
+  </>
+))
+
+export const GlyphFigures = makeGlyph('0 0 64 64', (
+  <>
+    <circle cx="32" cy="12" r="5.5" />
+    <path d="M32 18 L 32 30" strokeWidth={0.8} />
+    <path d="M19 50 Q 19 30 32 30 Q 45 30 45 50" strokeWidth={0.9} />
+    <circle cx="14" cy="28" r="3.5" strokeWidth={0.8} opacity={0.7} />
+    <circle cx="50" cy="28" r="3.5" strokeWidth={0.8} opacity={0.7} />
+    <path d="M17 30 L 22 33 M 47 30 L 42 33" strokeWidth={0.6} opacity={0.5} />
+    <path d="M14 50 L 50 50" strokeWidth={0.6} opacity={0.4} />
+  </>
+))
+
+export const GlyphMortarboard = makeGlyph('0 0 64 64', (
+  <>
+    <path d="M8 28 L 32 18 L 56 28 L 32 38 Z" />
+    <path d="M20 32 L 20 44 Q 26 52 32 52 Q 38 52 44 44 L 44 32" strokeWidth={0.9} opacity={0.85} />
+    <path d="M52 28 L 52 41" strokeWidth={0.9} />
+    <path d="M48 41 L 56 41" strokeWidth={0.8} />
+    <path d="M26 36 Q 32 39 38 36" strokeWidth={0.5} opacity={0.5} />
+  </>
+))
+
+export const GlyphGear = makeGlyph('0 0 64 64', (
+  <>
+    <circle cx="32" cy="32" r="11" />
+    <circle cx="32" cy="32" r="4.5" />
+    <path d="M32 14 L 32 18 M 32 46 L 32 50 M 14 32 L 18 32 M 46 32 L 50 32" strokeWidth={1.1} />
+    <path d="M20 20 L 23 23 M 44 20 L 41 23 M 20 44 L 23 41 M 44 44 L 41 41" strokeWidth={0.9} />
+  </>
+))
+
+export const GlyphPaper = makeGlyph('0 0 64 64', (
+  <>
+    <path d="M16 8 L 42 8 L 52 18 L 52 56 L 16 56 Z" />
+    <path d="M42 8 L 42 18 L 52 18" strokeWidth={0.7} />
+    <path d="M24 28 L 44 28 M 24 36 L 44 36 M 24 44 L 36 44" strokeWidth={0.7} opacity={0.7} />
+    <path d="M24 20 L 38 20" strokeWidth={0.6} opacity={0.5} />
+  </>
+))
+
+export const GlyphNodes = makeGlyph('0 0 64 64', (
+  <>
+    <circle cx="32" cy="12" r="5" />
+    <circle cx="12" cy="48" r="5" />
+    <circle cx="52" cy="48" r="5" />
+    <path d="M29 17 L 15 44 M 35 17 L 49 44 M 17 48 L 47 48" strokeWidth={0.9} />
+    <circle cx="32" cy="32" r="3" strokeWidth={0.7} opacity={0.65} />
+    <path d="M25 28 L 18 42 M 39 28 L 46 42" strokeWidth={0.5} opacity={0.45} />
+  </>
+))
+
 export const GLYPHS = {
-  Mountain: GlyphMountain,
-  Leaf:     GlyphLeaf,
-  Sun:      GlyphSun,
-  Hands:    GlyphHands,
-  Compass:  GlyphCompass,
-  House:    GlyphHouse,
-  Bowl:     GlyphBowl,
-  Book:     GlyphBook,
-  Pine:     GlyphPine,
-  Bird:     GlyphBird,
-  Wave:     GlyphWave,
-  Pen:      GlyphPen,
-  Lantern:  GlyphLantern,
-  Flame:    GlyphFlame,
-  Heart:    GlyphHeart,
+  Mountain:     GlyphMountain,
+  Leaf:         GlyphLeaf,
+  Sun:          GlyphSun,
+  Hands:        GlyphHands,
+  Compass:      GlyphCompass,
+  House:        GlyphHouse,
+  Bowl:         GlyphBowl,
+  Book:         GlyphBook,
+  Pine:         GlyphPine,
+  Bird:         GlyphBird,
+  Wave:         GlyphWave,
+  Pen:          GlyphPen,
+  Lantern:      GlyphLantern,
+  Flame:        GlyphFlame,
+  Heart:        GlyphHeart,
+  Arch:         GlyphArch,
+  Route:        GlyphRoute,
+  Figures:      GlyphFigures,
+  Mortarboard:  GlyphMortarboard,
+  Gear:         GlyphGear,
+  Paper:        GlyphPaper,
+  Nodes:        GlyphNodes,
 } as const
 
 export type GlyphName = keyof typeof GLYPHS

@@ -27,11 +27,18 @@ export const metadata: Metadata = {
 export const revalidate = 60
 
 const CATEGORY_LINKS = [
-  { href: '/directory/insurance/', label: 'Insurance' },
-  { href: '/directory/booking-software/', label: 'Booking' },
-  { href: '/directory/marketing-tools/', label: 'Marketing' },
-  { href: '/directory/legal-templates/', label: 'Legal' },
-  { href: '/directory/photography/', label: 'Photography' },
+  { href: '/directory/marketing-tools/',       label: 'Marketing Tools' },
+  { href: '/directory/insurance/',             label: 'Insurance' },
+  { href: '/directory/booking-software/',      label: 'Booking Software' },
+  { href: '/directory/legal-templates/',       label: 'Legal Templates' },
+  { href: '/directory/photography/',           label: 'Photography' },
+  { href: '/directory/venues-spaces/',         label: 'Venues & Spaces' },
+  { href: '/directory/logistics-transport/',   label: 'Logistics & Transport' },
+  { href: '/directory/people-practitioners/',  label: 'People & Practitioners' },
+  { href: '/directory/knowledge-training/',    label: 'Knowledge & Training' },
+  { href: '/directory/equipment-materials/',   label: 'Equipment & Materials' },
+  { href: '/directory/curriculum-content/',    label: 'Curriculum & Content' },
+  { href: '/directory/community-partnerships/', label: 'Community & Partnerships' },
 ]
 
 export default async function DirectoryPage() {
@@ -60,7 +67,7 @@ export default async function DirectoryPage() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Retreat Founder Resource Directory',
-    description: 'Curated tools for retreat founders across insurance, booking, marketing, legal, and photography.',
+    description: 'Curated resources for retreat founders across twelve sections — marketing, insurance, venues, people, training, equipment, and more.',
     numberOfItems: tools.length,
     itemListElement: tools.map((tool, i) => ({
       '@type': 'ListItem',
@@ -97,7 +104,7 @@ export default async function DirectoryPage() {
                 className="font-body"
                 style={{ fontSize: 17, lineHeight: 1.5, color: 'var(--color-ink-60)', maxWidth: 480, margin: '0 0 32px' }}
               >
-                {Math.max(tools.length, 60)}+ tools across insurance, booking, marketing, legal, and photography.
+                {Math.max(tools.length, 60)}+ resources across twelve sections — venues, people, training, equipment, and more.
                 No sponsored rankings.
               </p>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>

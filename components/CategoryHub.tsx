@@ -12,11 +12,18 @@ import { PillarGlyph } from '@/components/PillarGlyph'
 import { Glyph } from '@/components/Glyphs'
 
 const PILLARS = [
-  { label: 'Marketing Tools',  href: '/directory/marketing-tools/' },
-  { label: 'Insurance',        href: '/directory/insurance/' },
-  { label: 'Booking Software', href: '/directory/booking-software/' },
-  { label: 'Legal Templates',  href: '/directory/legal-templates/' },
-  { label: 'Photography',      href: '/directory/photography/' },
+  { label: 'Marketing Tools',         href: '/directory/marketing-tools/' },
+  { label: 'Insurance',               href: '/directory/insurance/' },
+  { label: 'Booking Software',        href: '/directory/booking-software/' },
+  { label: 'Legal Templates',         href: '/directory/legal-templates/' },
+  { label: 'Photography',             href: '/directory/photography/' },
+  { label: 'Venues & Spaces',         href: '/directory/venues-spaces/' },
+  { label: 'Logistics & Transport',   href: '/directory/logistics-transport/' },
+  { label: 'People & Practitioners',  href: '/directory/people-practitioners/' },
+  { label: 'Knowledge & Training',    href: '/directory/knowledge-training/' },
+  { label: 'Equipment & Materials',   href: '/directory/equipment-materials/' },
+  { label: 'Curriculum & Content',    href: '/directory/curriculum-content/' },
+  { label: 'Community & Partnerships', href: '/directory/community-partnerships/' },
 ]
 
 interface CategoryHubProps {

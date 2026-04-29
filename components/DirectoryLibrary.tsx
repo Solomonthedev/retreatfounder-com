@@ -22,6 +22,13 @@ const PILLARS = [
   'Marketing Tools',
   'Legal Templates',
   'Photography',
+  'Venues & Spaces',
+  'Logistics & Transport',
+  'People & Practitioners',
+  'Knowledge & Training',
+  'Equipment & Materials',
+  'Curriculum & Content',
+  'Community & Partnerships',
 ] as const
 
 const PRICE_TIERS = ['Free', 'Freemium', 'Paid'] as const
