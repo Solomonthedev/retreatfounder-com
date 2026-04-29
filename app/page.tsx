@@ -103,7 +103,6 @@ export default async function HomePage() {
           <div style={{ background: 'var(--color-paper-deep)', border: '1px solid var(--color-rule)', padding: '22px 22px 20px', position: 'relative' }} className="signup-stripe">
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-ink-3)', display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
               <span>The Newsletter <span style={{ color: 'var(--color-red)' }}>/ Weekly</span></span>
-              <span>№ 042</span>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6 }}>
@@ -119,9 +118,8 @@ export default async function HomePage() {
 
             <EmailCaptureForm formId={NOTIFY_FORM} label="Subscribe →" placeholder="your@email.com" />
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', color: 'var(--color-ink-3)' }}>
-              <span>No spam. Unsubscribe anytime.</span>
-              <span style={{ color: 'var(--color-ink)' }}>6,247 readers</span>
+            <div style={{ marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', color: 'var(--color-ink-3)' }}>
+              No spam. Unsubscribe anytime.
             </div>
           </div>
         </div>
