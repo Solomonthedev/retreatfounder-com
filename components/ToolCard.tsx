@@ -5,30 +5,31 @@ import { pillarToHubSlug } from '@/lib/pillar'
 
 interface Props { tool: Tool }
 
-const PILLAR_TINTS: Record<string, string> = {
-  'Marketing Tools':    '#F0EDE5',
-  'Insurance':          '#EAF0ED',
-  'Booking Software':   '#F0EDE8',
-  'Legal Templates':    '#EEEDF5',
-  'Photography':        '#F0EDEE',
+const PILLAR_ACCENTS: Record<string, string> = {
+  'Marketing Tools':   'var(--color-ink-3)',
+  'Insurance':         'var(--color-ink-3)',
+  'Booking Software':  'var(--color-ink-3)',
+  'Legal Templates':   'var(--color-ink-3)',
+  'Photography':       'var(--color-ink-3)',
 }
 
 export function ToolCard({ tool }: Props) {
   const href = `/directory/${pillarToHubSlug(tool.pillar)}/${tool.slug}`
-  const tint = PILLAR_TINTS[tool.pillar] ?? '#F5F2EB'
+  const accent = PILLAR_ACCENTS[tool.pillar] ?? '#B5AFA6'
 
   return (
     <Link
       href={href}
       className="no-underline flex flex-col group card-hover"
       style={{
-        background: 'var(--color-cream)',
+        background: 'var(--color-paper)',
         borderRadius: 2,
         overflow: 'hidden',
-        border: '1px solid var(--color-cream-300)',
+        border: '1px solid var(--color-rule)',
+        borderLeft: `2px solid var(--color-rule)`,
       }}
     >
-      {/* Visual area — screenshot strip, ruled-paper + logo, or 4px accent bar */}
+      {/* Visual area — screenshot strip, ruled-paper + logo, or nothing */}
       {tool.screenshotUrl ? (
         <div
           style={{
@@ -55,8 +56,8 @@ export function ToolCard({ tool }: Props) {
             height: 80,
             position: 'relative',
             overflow: 'hidden',
-            background: tint,
-            backgroundImage: 'repeating-linear-gradient(transparent, transparent 11px, rgba(34,30,22,0.07) 11px, rgba(34,30,22,0.07) 12px)',
+            background: 'var(--color-paper-deep)',
+            backgroundImage: 'repeating-linear-gradient(transparent, transparent 11px, rgba(29,26,20,0.07) 11px, rgba(29,26,20,0.07) 12px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -71,16 +72,7 @@ export function ToolCard({ tool }: Props) {
             style={{ objectFit: 'contain' }}
           />
         </div>
-      ) : (
-        <div
-          style={{
-            width: '100%',
-            height: 4,
-            background: tint,
-            flexShrink: 0,
-          }}
-        />
-      )}
+      ) : null}
 
       {/* Card body */}
       <div style={{ padding: '18px 20px 16px', display: 'flex', flexDirection: 'column', flex: 1 }}>
@@ -102,8 +94,8 @@ export function ToolCard({ tool }: Props) {
 
         {/* Name */}
         <h3
-          className="font-display text-ink uppercase"
-          style={{ fontSize: 18, letterSpacing: '0.01em', lineHeight: 1.1, margin: '0 0 6px' }}
+          className="font-serif text-ink"
+          style={{ fontSize: 15, letterSpacing: 'normal', lineHeight: 1.1, margin: '0 0 6px' }}
         >
           {tool.name}
         </h3>
@@ -140,6 +132,29 @@ export function ToolCard({ tool }: Props) {
         >
           {tool.description}
         </p>
+
+        {/* Tags */}
+        {tool.tags && tool.tags.length > 0 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, margin: '0 0 10px' }}>
+            {tool.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag}
+                className="font-body"
+                style={{
+                  fontSize: 9,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-ink-40)',
+                  background: 'var(--color-cream-200)',
+                  padding: '2px 6px',
+                  borderRadius: 2,
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Use cases row */}
         {tool.useCases && tool.useCases.length > 0 && (
@@ -180,7 +195,7 @@ export function ToolCard({ tool }: Props) {
             className="font-body"
             style={{
               fontSize: 16,
-              color: 'var(--color-field-green)',
+              color: 'var(--color-red)',
               whiteSpace: 'nowrap',
               flexShrink: 0,
               lineHeight: 1,

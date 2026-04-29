@@ -58,7 +58,7 @@ test('shows empty state when no tools', () => {
   render(
     <CategoryHub pillarName="Insurance" headline="H" headlineAccent="W" bodyText="B" tools={[]} formId="preview" />
   )
-  expect(screen.getByText(/No tools loaded/)).toBeInTheDocument()
+  expect(screen.getByText(/check Airtable connection/)).toBeInTheDocument()
 })
 
 test('shows editor picks section when featured tools exist', () => {

@@ -1,88 +1,50 @@
 'use client'
 import Link from 'next/link'
+import { GlyphMountain } from '@/components/Glyphs'
 
 export function Nav() {
-  const underlineSvg = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 8' preserveAspectRatio='none'><path d='M2 5 Q 50 1 100 4 T 200 5 T 300 4 T 358 3' stroke='%23C84A1F' stroke-width='1.8' fill='none' stroke-linecap='round'/></svg>`
-
   return (
-    <header className="sticky top-0 z-10 bg-cream border-b border-cream-300">
-      <div
-        className="mx-auto px-8 py-4 flex items-center justify-between"
-        style={{ maxWidth: 1280 }}
-      >
-        <Link href="/" className="no-underline hover:opacity-80 transition-opacity">
-          <span className="inline-flex items-baseline gap-1.5 leading-none">
-            <span
-              className="font-body italic font-semibold text-ember"
-              style={{
-                fontSize: '0.6rem',
-                letterSpacing: '0.16em',
-                textTransform: 'uppercase',
-                transform: 'translateY(-3px)',
-                display: 'inline-block',
-              }}
-            >
-              The
-            </span>
-            <span
-              className="font-display text-ink uppercase"
-              style={{
-                fontSize: '1.35rem',
-                letterSpacing: '0.005em',
-                position: 'relative',
-                paddingBottom: 5,
-              }}
-            >
-              Retreat Founder
-              <span
-                aria-hidden
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  height: 5,
-                  background: `url("${underlineSvg}") no-repeat center / 100% 100%`,
-                }}
-              />
-            </span>
-          </span>
-        </Link>
+    <header style={{
+      borderBottom: '1px solid var(--color-rule)',
+      background: 'var(--color-paper)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 20,
+    }}>
+      <div style={{ maxWidth: 1240, margin: '0 auto', padding: '0 36px' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 1fr',
+          alignItems: 'center',
+          padding: '18px 0',
+        }}>
+          {/* Left — mono labels */}
+          <div style={{ display: 'flex', gap: 24, alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-ink-3)' }}>
+            <span>Est. 2024</span>
+            <span>Issue № 042</span>
+          </div>
 
-        <nav className="flex items-center gap-7">
-          <Link
-            href="/directory/"
-            className="font-body text-sm font-medium text-ink no-underline hover:text-field-green transition-colors"
-          >
-            The directory
+          {/* Centre — brand */}
+          <Link href="/" className="no-underline" style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--color-ink)' }}>
+            <GlyphMountain size={22} color="var(--color-red)" strokeWidth={1.1} />
+            <span style={{ fontFamily: 'var(--font-serif)', fontSize: 20, letterSpacing: '-0.01em', color: 'var(--color-ink)' }}>
+              retreatfounder
+            </span>
           </Link>
-          <Link
-            href="/newsletter"
-            className="font-body text-sm font-medium text-ink no-underline hover:text-field-green transition-colors"
-          >
-            The letter
-          </Link>
-          <Link
-            href="/directory/"
-            className="font-body text-sm font-semibold no-underline transition-colors"
-            style={{
-              background: 'var(--color-ember)',
-              color: 'var(--color-cream)',
-              padding: '10px 20px',
-              borderRadius: 2,
-            }}
-            onMouseOver={(e) =>
-              ((e.currentTarget as HTMLElement).style.background =
-                'var(--color-ember-700)')
-            }
-            onMouseOut={(e) =>
-              ((e.currentTarget as HTMLElement).style.background =
-                'var(--color-ember)')
-            }
-          >
-            Browse tools
-          </Link>
-        </nav>
+
+          {/* Right — nav links */}
+          <nav style={{ display: 'flex', gap: 24, justifyContent: 'flex-end', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            <Link href="/directory/" className="no-underline nav-link" style={{ color: 'var(--color-ink-2)' }}>
+              Directory
+            </Link>
+            <Link href="/newsletter" className="no-underline nav-link" style={{ color: 'var(--color-ink-2)' }}>
+              Newsletter
+            </Link>
+            <Link href="/directory/" className="no-underline" style={{ color: 'var(--color-red)' }}>
+              Browse →
+            </Link>
+          </nav>
+        </div>
       </div>
     </header>
   )

@@ -77,7 +77,7 @@ export default async function DirectoryPage() {
       {/* Hero — headline left, newsletter module right */}
       <section style={{ borderBottom: '1px solid var(--color-ink)', padding: 'clamp(32px, 5vw, 56px) clamp(16px, 4vw, 32px) clamp(40px, 5vw, 64px)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 40, alignItems: 'start' }}>
+          <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 56, alignItems: 'start' }}>
 
             {/* Left — headline + nav pills */}
             <div>
@@ -88,11 +88,10 @@ export default async function DirectoryPage() {
                 The Retreat Founder · Resource Library
               </p>
               <h1
-                className="font-display text-ink uppercase"
-                style={{ fontSize: 'clamp(36px, 6vw, 64px)', lineHeight: 0.95, letterSpacing: '0.005em', margin: '0 0 20px' }}
+                style={{ fontSize: 'clamp(36px, 6vw, 64px)', lineHeight: 0.95, letterSpacing: '-0.01em', margin: '0 0 20px', fontWeight: 400, color: 'var(--color-ink)' }}
               >
-                Every tool.<br />
-                <span style={{ color: 'var(--color-ember)' }}>Honestly curated.</span>
+                <span className="font-body" style={{ fontWeight: 400, letterSpacing: '-0.01em' }}>The </span>
+                <span className="font-serif" style={{ fontStyle: 'italic' }}>Directory</span>
               </h1>
               <p
                 className="font-body"
