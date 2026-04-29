@@ -153,7 +153,7 @@ export default async function HomePage() {
             <div style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 400, letterSpacing: '-0.01em', color: 'var(--color-ink)', lineHeight: 1.25 }}>
               Five threads worth following.
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 2 }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
               {[
                 { label: 'Insurance', href: '/directory/insurance/' },
                 { label: 'Booking', href: '/directory/booking-software/' },
