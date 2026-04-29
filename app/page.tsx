@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 60
 
-const FIVE_THREADS = [
+const ALL_SECTIONS = [
   {
     label: 'Marketing Tools',
     href: '/directory/marketing-tools/',
@@ -49,6 +49,55 @@ const FIVE_THREADS = [
     subhead: 'Capturing what you build.',
     description: 'The images that carry a retreat\'s atmosphere into a sales page. Photographers and tools that understand light, space, and the feeling you\'re selling.',
     num: '05',
+  },
+  {
+    label: 'Venues & Spaces',
+    href: '/directory/venues-spaces/',
+    subhead: 'The space before a word is spoken.',
+    description: 'Venue libraries, location agencies, and location scouts — the people who find retreat spaces so you don\'t have to start from zero.',
+    num: '06',
+  },
+  {
+    label: 'Logistics & Transport',
+    href: '/directory/logistics-transport/',
+    subhead: 'Getting everyone there.',
+    description: 'Transfer companies, route planning, and logistics providers that understand group travel. Invisible when done right.',
+    num: '07',
+  },
+  {
+    label: 'People & Practitioners',
+    href: '/directory/people-practitioners/',
+    subhead: 'The team that makes it happen.',
+    description: 'Chefs, facilitators, sound healers. The platforms and agencies where retreat founders actually find the practitioners they need.',
+    num: '08',
+  },
+  {
+    label: 'Knowledge & Training',
+    href: '/directory/knowledge-training/',
+    subhead: 'Learning from people who\'ve done it.',
+    description: 'Certifications, courses, and programmes built for retreat operators — not generic business theory dressed in wellness language.',
+    num: '09',
+  },
+  {
+    label: 'Equipment & Materials',
+    href: '/directory/equipment-materials/',
+    subhead: 'The gear guests remember.',
+    description: 'Yoga mats, sound equipment, cold plunge tubs, welcome packs. The suppliers retreat founders actually use — curated by what holds up in practice.',
+    num: '10',
+  },
+  {
+    label: 'Curriculum & Content',
+    href: '/directory/curriculum-content/',
+    subhead: 'What happens in the room.',
+    description: 'Guided meditation scripts, workbook templates, facilitation guides. The content infrastructure that turns a loose schedule into a programme people talk about for years.',
+    num: '11',
+  },
+  {
+    label: 'Community & Partnerships',
+    href: '/directory/community-partnerships/',
+    subhead: 'The network that compounds.',
+    description: 'Associations, masterminds, and partner networks for retreat founders. The rooms where the industry actually talks.',
+    num: '12',
   },
 ]
 
@@ -151,16 +200,10 @@ export default async function HomePage() {
           <div style={{ padding: '20px 20px 22px', borderLeft: '1px dashed var(--color-rule)', display: 'flex', flexDirection: 'column', gap: 10 }}>
             <Glyph name="Compass" size={28} color="var(--color-red)" strokeWidth={1.1} />
             <div style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 400, letterSpacing: '-0.01em', color: 'var(--color-ink)', lineHeight: 1.25 }}>
-              Five threads worth following.
+              Twelve threads worth following.
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
-              {[
-                { label: 'Insurance', href: '/directory/insurance/' },
-                { label: 'Booking', href: '/directory/booking-software/' },
-                { label: 'Marketing', href: '/directory/marketing-tools/' },
-                { label: 'Legal', href: '/directory/legal-templates/' },
-                { label: 'Photography', href: '/directory/photography/' },
-              ].map(({ label, href }) => (
+              {ALL_SECTIONS.map(({ label, href }) => (
                 <Link
                   key={href}
                   href={href}
@@ -197,23 +240,24 @@ export default async function HomePage() {
         <div style={{ maxWidth: 1240, margin: '0 auto', position: 'relative', zIndex: 1 }}>
           <div style={{ marginBottom: 36, maxWidth: 640 }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-ink-3)', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ color: 'var(--color-red)' }}>●</span> Five threads we follow
+              <span style={{ color: 'var(--color-red)' }}>●</span> Twelve threads we follow
             </div>
             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(28px, 3.4vw, 44px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.02em', margin: 0 }}>
-              Five things every retreat founder{' '}
+              Everything a retreat founder{' '}
               <em style={{ fontStyle: 'italic', color: 'var(--color-red)' }}>needs to get right.</em>
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', borderTop: '1px solid var(--color-rule)', borderBottom: '1px solid var(--color-rule)' }}>
-            {FIVE_THREADS.map(({ label, href, subhead, description, num }, i) => (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: '1px solid var(--color-rule)', borderBottom: '1px solid var(--color-rule)' }}>
+            {ALL_SECTIONS.map(({ label, href, subhead, description, num }, i) => (
               <Link
                 key={href}
                 href={href}
                 className="no-underline"
                 style={{
                   padding: '28px 22px 24px',
-                  borderLeft: i > 0 ? '1px dashed var(--color-rule)' : 'none',
+                  borderLeft: i % 4 !== 0 ? '1px dashed var(--color-rule)' : 'none',
+                  borderTop: i >= 4 ? '1px dashed var(--color-rule)' : 'none',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 8,

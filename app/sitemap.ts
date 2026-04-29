@@ -18,6 +18,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/directory/booking-software',
     '/directory/legal-templates',
     '/directory/photography',
+    '/directory/venues-spaces',
+    '/directory/logistics-transport',
+    '/directory/people-practitioners',
+    '/directory/knowledge-training',
+    '/directory/equipment-materials',
+    '/directory/curriculum-content',
+    '/directory/community-partnerships',
   ].map((route) => ({
     url: `${base}${route}`,
     lastModified: new Date(),
